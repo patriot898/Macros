@@ -19,7 +19,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>Here is the app
+      <div>
         <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
         dailyCalories={this.state.dailyCalories}/>
       </div>
