@@ -11,37 +11,15 @@ app.listen(port, () => {
   console.log(`Meal Planner Connected on ${port}`);
 });
 
-app.get('/mains', (req, res) => {
+app.get('/recipes', (req, res) => {
 
 });
 
-app.get('/snacks', (req, res) => {
+app.post('/recipes', (req, res) => {
 
 });
 
-app.get('/sides', (req, res) => {
 
-});
-
-app.get('/shakes', (req, res) => {
-
-});
-
-app.post('/mains', (req, res) => {
-
-});
-
-app.post('/snacks', (req, res) => {
-
-});
-
-app.post('/sides', (req, res) => {
-
-});
-
-app.post('/shakes', (req, res) => {
-
-});
 
 
 

@@ -14,8 +14,10 @@ const recipeSchema = new Schema({
     amount: Number,
     unit: String
   }],
-  type: String, // main, shake, side
+  type: String, // main, shake, side, snack
   group: String, // fruit, vegetable, dairy
-  meal: String, // breakfast, lunch/dinner
-  pairing: String // if main: rice, potatoes, etc
+  meal: { type: String, default: 'any' }, // breakfast, lunch/dinner, any
+  pairing: { type: String, default: 'none' }, // if main: rice, potatoes, etc.
 });
+
+const Recipe = mongoose.model('Recipe', recipeSchema);
