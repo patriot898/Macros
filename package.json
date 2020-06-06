@@ -28,5 +28,10 @@
     "react-dom": "^16.13.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "mongoose": "^5.9.18",
+    "styled-components": "^5.1.1"
   }
 }
