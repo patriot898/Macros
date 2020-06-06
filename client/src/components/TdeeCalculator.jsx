@@ -5,6 +5,7 @@ const Wrapper = styled.div`
   border: thin solid black;
   background: grey;
   width: fit-content;
+  display: inline-block;
 `;
 
 const InputContainer = styled.div`
@@ -85,11 +86,11 @@ class TdeeCalculator extends React.Component {
           <InputContainer>
             <InputLabel>Exercise Level</InputLabel>
             <Dropdown onChange={this.handleChange.bind(this)} id="exerciseLevel">
-              <option value="1.2">Sedentary</option>
-              <option value="1.375">Light</option>
-              <option value="1.55">Moderate</option>
-              <option value="1.725">Heavy</option>
-              <option value="1.9">Athletic</option>
+              <option value="1.1">Sedentary</option>
+              <option value="1.3">Light</option>
+              <option value="1.4">Moderate</option>
+              <option value="1.5">Heavy</option>
+              <option value="1.7">Athletic</option>
             </Dropdown>
           </InputContainer>
           <InputContainer>

@@ -1,6 +1,7 @@
 import React from 'react';
-import TdeeCalculator from './TdeeCalculator.jsx';
 import $ from 'jquery';
+import TdeeCalculator from './TdeeCalculator.jsx';
+import FoodDisplay from './FoodDisplay.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class App extends React.Component {
       <div>
         <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
         dailyCalories={this.state.dailyCalories}/>
+        <FoodDisplay />
       </div>
     )
   }
