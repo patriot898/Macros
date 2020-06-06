@@ -23,8 +23,12 @@ const recipeSchema = new Schema({
 });
 
 recipeSchema.static('findByName', (name) => {
-  return this.find({name})
+  return this.find({ name })
 });
+
+recipeSchema.static('findByType', (type) => {
+  return this.find({ type })
+})
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
