@@ -13,6 +13,7 @@ const addRecipe = (recipe, callback) => {
 };
 
 const getRecipes = (callback) => {
+  console.log('Getting recipes!');
   Recipe.find({}, (err, docs) => {
     if (err) {
       callback(err);

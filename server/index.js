@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('../database/index.js')
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -14,6 +15,7 @@ app.listen(port, () => {
 });
 
 app.get('/recipes', (req, res) => {
+  console.log('Responding to get request');
   controller.getRecipes((err, recipes) => {
     if (err) {
       console.log(err);
@@ -21,7 +23,7 @@ app.get('/recipes', (req, res) => {
     } else {
       res.status(200).send(recipes);
     }
-  })
+  });
 
 
 });

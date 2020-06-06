@@ -74,9 +74,13 @@ const snackPeppers = new Recipe({
 });
 
 
-mongoose.connect('mongodb://localhost:27017/mealPlanner', {useNewURLParser: true});
+mongoose.connect('mongodb://localhost:27017/mealPlanner', {useNewUrlParser: true});
 
-beefAndTomato.save();
+beefAndTomato.save((err) => {
+  if (err) {
+    console.log(err);
+  }
+});
 snackPeppers.save();
 apple.save();
 orangeJuliusProtein.save();

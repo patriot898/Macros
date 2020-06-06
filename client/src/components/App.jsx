@@ -1,5 +1,6 @@
 import React from 'react';
 import TdeeCalculator from './TdeeCalculator.jsx';
+import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,14 +10,32 @@ class App extends React.Component {
     }
   }
 
-  updateCalories (dailyCalories) {
+  componentDidMount() {
+    this.getRecipes();
+  }
+
+  getRecipes() {
+    $.ajax({
+      method: 'get',
+      url: '/recipes',
+      success: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+
+  }
+
+  updateCalories(dailyCalories) {
     this.setState({
       dailyCalories
     });
   }
 
 
-  render () {
+  render() {
     return (
       <div>
         <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
