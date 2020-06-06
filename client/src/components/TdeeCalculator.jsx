@@ -1,37 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div `
+const Wrapper = styled.div`
   border: thin solid black;
   background: grey;
   width: fit-content;
 `;
 
-const InputContainer = styled.div `
+const InputContainer = styled.div`
   width: 20em;
   padding-bottom: 1em;
 `;
 
-const StatInput = styled.input `
+const StatInput = styled.input`
 `;
 
-const InputLabel = styled.label `
+const InputLabel = styled.label`
 `;
 
-const CalcForm = styled.form `
+const CalcForm = styled.form`
 `;
 
-const Dropdown = styled.select `
+const Dropdown = styled.select`
 `;
 
-const CalculateButton = styled.button `
+const CalculateButton = styled.button`
 `;
 
-const CalculatedDisplay = styled.div `
+const CalculatedDisplay = styled.div`
   width: 20em;
 `;
 
-const CalculatedValue = styled.h3 `
+const CalculatedValue = styled.h3`
 `
 
 class TdeeCalculator extends React.Component {
@@ -56,12 +56,13 @@ class TdeeCalculator extends React.Component {
 
   calculate(event) {
     event.preventDefault();
-    const bmr = parseInt(parseInt(this.state.weight)/2.2 * (1 - this.state.bodyFat/100) * 21 + 370); // Katch-Mcardle Equation
+    const bmr = parseInt(parseInt(this.state.weight) / 2.2 * (1 - this.state.bodyFat / 100) * 21 + 370); // Katch-Mcardle Equation
     const tdee = parseInt(bmr * parseFloat(this.state.exerciseLevel));
+    const dailyCalories = parseInt(tdee * parseFloat(this.state.goal));
     this.setState({
-      bmr, tdee
+      tdee, bmr
     })
-
+    this.props.updateCalories(dailyCalories);
   }
 
   reset() {
@@ -93,7 +94,7 @@ class TdeeCalculator extends React.Component {
           </InputContainer>
           <InputContainer>
             <InputLabel>Goal</InputLabel>
-            <Dropdown onChange={this.handleChange.bind(this)} id="goal">
+            <Dropdown onChange={this.handleChange.bind(this)} id="goal" defaultValue="1">
               <option value="0.8">Cut</option>
               <option value="1">Maintain</option>
               <option value="1.2">Bulk</option>
@@ -104,6 +105,7 @@ class TdeeCalculator extends React.Component {
         <CalculatedDisplay>
           <CalculatedValue id="bmr">BMR: {this.state.bmr}</CalculatedValue>
           <CalculatedValue id="tdee">TDEE: {this.state.tdee}</CalculatedValue>
+          <CalculatedValue id="dailyCalories">Daily Caloric Requirement: {this.props.dailyCalories}</CalculatedValue>
         </CalculatedDisplay>
       </Wrapper>
     )

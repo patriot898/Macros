@@ -5,14 +5,23 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dailyCalories: null
     }
+  }
+
+  updateCalories (dailyCalories) {
+    this.setState({
+      dailyCalories
+    });
+
   }
 
 
   render () {
     return (
       <div>Here is the app
-        <TdeeCalculator />
+        <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
+        dailyCalories={this.state.dailyCalories}/>
       </div>
     )
   }
