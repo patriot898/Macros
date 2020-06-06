@@ -22,4 +22,4 @@ const getRecipes = (callback) => {
   });
 };
 
-module.exports = { addRecipe, getRecipes};
+module.exports = { addRecipe, getRecipes };
