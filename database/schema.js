@@ -22,6 +22,10 @@ const recipeSchema = new Schema({
   pairing: { type: String, default: 'none' }, // if main: rice, potatoes, etc.
 });
 
+recipeSchema.static('findByName', (name) => {
+  return this.find({name})
+});
+
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = Recipe;
