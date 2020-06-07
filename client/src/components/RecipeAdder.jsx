@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 
-const Wrapper = styled.div `
+const Wrapper = styled.div`
   width: 20em;
   background: alice-blue;
   border: thin solid black;
@@ -11,24 +11,47 @@ const Wrapper = styled.div `
 `;
 
 const AddIngredientButton = styled.button `
+clear: left;
 
 `;
 
-const AddRecipeButton = styled.button `
+const RemoveIngredientButton = styled.button `
+  display: ${(props) => props.id === 'entry0' ? 'none' : 'block'};
+  float: left;
+  clear: right;
+`
+
+const ItemEntryInput = styled.input`
+  width: 65%;
+  float: left;
+  clear: ${(props) => props.id === 'entry0' ? 'right' : 'none'};
+`;
+
+const IngredientLineDiv = styled.div`
+
+`
+
+const AddRecipeButton = styled.button`
 
 `;
 
-const TypeDropdown = styled.select `
+const TypeDropdown = styled.select`
 
 `;
 
-const ItemEntryInput = styled.input `
-  width: 90%;
-`;
 
-const Header = styled.h2 `
+const Header = styled.h2`
 
 `;
+
+const IngredientLine = (props) => {
+  return (
+    <IngredientLineDiv>
+      <ItemEntryInput id={props.id} value={props.value} onChange={props.change} />
+      <RemoveIngredientButton id={props.id} onClick={props.remove}>Remove</RemoveIngredientButton>
+    </IngredientLineDiv>
+  )
+}
 
 class RecipeAdder extends React.Component {
   constructor(props) {
@@ -65,13 +88,20 @@ class RecipeAdder extends React.Component {
     });
   }
 
+  removeIngredient(event) {
+    const ingredients = this.state.ingredients.filter((ingredient) => {
+      return `entry${ingredient.id}` !== event.target.id;
+    });
+    this.setState({ ingredients });
+  }
+
   render() {
     return (
       <Wrapper>
         <Header>Add A Recipe or Item</Header>
         {this.state.ingredients.map((ingredient) =>
-        <ItemEntryInput id={`entry${ingredient.id}`} value={ingredient.value} onChange={this.onChange.bind(this)}/>
-      )}
+          <IngredientLine id={`entry${ingredient.id}`} value={ingredient.value} change={this.onChange.bind(this)} remove={this.removeIngredient.bind(this)}/>
+        )}
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
         <AddRecipeButton>Add Recipe</AddRecipeButton>
