@@ -7,7 +7,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dailyCalories: null
+      dailyCalories: null,
+      recipes: []
     }
   }
 
@@ -19,8 +20,10 @@ class App extends React.Component {
     $.ajax({
       method: 'get',
       url: '/recipes',
-      success: (data) => {
-        console.log(data);
+      success: (recipes) => {
+        this.setState({
+          recipes
+        })
       },
       error: (err) => {
         console.log(err);
@@ -41,7 +44,7 @@ class App extends React.Component {
       <div>
         <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
         dailyCalories={this.state.dailyCalories}/>
-        <FoodDisplay />
+        <FoodDisplay recipes={this.state.recipes}/>
       </div>
     )
   }
