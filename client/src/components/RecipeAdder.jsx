@@ -62,7 +62,8 @@ class RecipeAdder extends React.Component {
         id: 0,
         value: ''
       }],
-      counter: 0
+      counter: 0,
+      addButtonText: 'Item'
     }
   }
 
@@ -85,7 +86,8 @@ class RecipeAdder extends React.Component {
     ingredients.push(newIngredient);
     this.setState({
       counter,
-      ingredients
+      ingredients,
+      addButtonText: 'Recipe'
     });
   }
 
@@ -93,7 +95,22 @@ class RecipeAdder extends React.Component {
     const ingredients = this.state.ingredients.filter((ingredient) => {
       return `entry${ingredient.id}` !== event.target.id;
     });
-    this.setState({ ingredients });
+    let addButtonText = 'Recipe';
+    if(ingredients.length === 1) {
+      addButtonText = 'Item';
+    }
+    this.setState({ ingredients, addButtonText });
+  }
+
+  addRecipe() {
+    const ingredients = [];
+    this.state.ingredients.forEach(ingredient => {
+      // all validation for ingredients can go here
+      if (ingredient.value !== '') {
+        ingredients.push(ingredient.value);
+      }
+    });
+    console.log(ingredients);
   }
 
   render() {
@@ -105,7 +122,7 @@ class RecipeAdder extends React.Component {
         )}
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
-        <AddRecipeButton>Add Recipe</AddRecipeButton>
+        <AddRecipeButton onClick={this.addRecipe.bind(this)}>Add {this.state.addButtonText}</AddRecipeButton>
       </Wrapper>
     )
 
