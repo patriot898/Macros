@@ -11,7 +11,8 @@ const Wrapper = styled.div`
 `;
 
 const AddIngredientButton = styled.button `
-clear: left;
+   clear: both;
+   display: block;
 
 `;
 
