@@ -4,8 +4,6 @@ import TdeeCalculator from './TdeeCalculator.jsx';
 import FoodDisplay from './FoodDisplay.jsx';
 import RecipeAdder from './RecipeAdder.jsx';
 
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,11 +18,11 @@ class App extends React.Component {
     this.getRecipes();
   }
 
-  evaluateRecipe(ingredients) {
+  evaluateRecipe(recipe) {
     $.ajax({
       method: 'post',
       url: '/nutrition',
-      data: ingredients,
+      data: recipe,
       success: (nutrition) => {
         console.log(nutrition);
         this.setState({ nutrition });

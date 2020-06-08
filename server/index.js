@@ -39,10 +39,13 @@ app.post('/nutrition', (req, res) => {
     url: `${edamam.URL}?app_id=${edamam.ID}&app_key=${edamam.KEY}`,
     data,
     dataType: 'json',
+    contentType: 'application/json',
     success: (responseData) => {
+      console.log(responseData);
       res.status(200).send(responseData);
     },
     error: (err) => {
+      console.log(err);
       res.status(500).send(err);
     }
   });
