@@ -37,6 +37,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "mongoose": "^5.9.18",
+    "react-bootstrap": "^1.0.1",
     "styled-components": "^5.1.1"
   }
 }

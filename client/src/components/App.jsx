@@ -9,12 +9,46 @@ class App extends React.Component {
     super(props);
     this.state = {
       dailyCalories: null,
-      recipes: []
+      recipes: [],
+      nutrition: null
     }
   }
 
   componentDidMount() {
     this.getRecipes();
+  }
+
+  evaluateRecipe(ingredients) {
+    $.ajax({
+      method: 'post',
+      url: '/nutrition',
+      data: ingredients,
+      success: (nutrition) => {
+        console.log(nutrition);
+        this.setState({ nutrition });
+      },
+      error: (err) => {
+        alert(err);
+      }
+    });
+  }
+
+  addRecipe(recipe) {
+    $.ajax({
+      method: 'post',
+      url: '/recipes',
+      data: recipe,
+      success: () => {
+        alert("Recipe Added");
+        this.setState({
+          nutrition: null
+        });
+      },
+      error: (err) => {
+        alert(err);
+      }
+    });
+
   }
 
   getRecipes() {
@@ -29,8 +63,7 @@ class App extends React.Component {
       error: (err) => {
         console.log(err);
       }
-    })
-
+    });
   }
 
   updateCalories(dailyCalories) {
@@ -46,7 +79,7 @@ class App extends React.Component {
         <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
         dailyCalories={this.state.dailyCalories}/>
         <FoodDisplay recipes={this.state.recipes}/>
-        <RecipeAdder/>
+        <RecipeAdder evaluate={this.evaluateRecipe.bind(this)} add={this.addRecipe.bind(this)}/>
       </div>
     )
   }

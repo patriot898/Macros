@@ -22,7 +22,7 @@ const RemoveIngredientButton = styled.button `
   clear: right;
 `
 
-const ItemEntryInput = styled.input`
+const ItemEntryInput = styled.input `
   width: 65%;
   float: left;
   clear: ${(props) => props.id === 'entry0' ? 'right' : 'none'};
@@ -32,7 +32,7 @@ const IngredientLineDiv = styled.div`
 
 `
 
-const AddRecipeButton = styled.button`
+const EvaluateRecipeButton = styled.button`
 
 `;
 
@@ -42,6 +42,14 @@ const TypeDropdown = styled.select`
 
 
 const Header = styled.h2`
+
+`;
+
+const TitleDiv = styled.div `
+
+`;
+
+const TitleInput = styled.input `
 
 `;
 
@@ -63,11 +71,20 @@ class RecipeAdder extends React.Component {
         value: ''
       }],
       counter: 0,
-      addButtonText: 'Item'
+      addButtonText: 'Item',
+      title: '',
+      showAdderModal: false
     }
   }
 
-  onChange(event) {
+  onTitleChange(event) {
+    console.log(event.target.value);
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  }
+
+  onIngredientChange(event) {
     const ingredients = this.state.ingredients;
     const targetIndex = ingredients.findIndex((ingredient) => {
       return `entry${ingredient.id}` === event.target.id;
@@ -102,7 +119,7 @@ class RecipeAdder extends React.Component {
     this.setState({ ingredients, addButtonText });
   }
 
-  addRecipe() {
+  evaluateRecipe() {
     const ingredients = [];
     this.state.ingredients.forEach(ingredient => {
       // all validation for ingredients can go here
@@ -110,7 +127,10 @@ class RecipeAdder extends React.Component {
         ingredients.push(ingredient.value);
       }
     });
-    console.log(ingredients);
+    const recipe = {};
+    recipe.ingr = ingredients;
+    recipe.title = this.state.title;
+    //this.props.evaluate(recipe);
   }
 
   render() {
@@ -118,11 +138,14 @@ class RecipeAdder extends React.Component {
       <Wrapper>
         <Header>Add A Recipe or Item</Header>
         {this.state.ingredients.map((ingredient) =>
-          <IngredientLine id={`entry${ingredient.id}`} value={ingredient.value} change={this.onChange.bind(this)} remove={this.removeIngredient.bind(this)}/>
+          <IngredientLine id={`entry${ingredient.id}`} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)}/>
         )}
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
-        <AddRecipeButton onClick={this.addRecipe.bind(this)}>Add {this.state.addButtonText}</AddRecipeButton>
+        <TitleDiv>
+          Recipe/Item Title<TitleInput id="title" onChange={this.props.onTitleChange}/>
+        </TitleDiv>
+        <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
       </Wrapper>
     )
 

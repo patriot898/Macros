@@ -4,9 +4,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const controller = require('../database/queries.js');
+const $ = require('jquery');
 
 const port = process.env.PORT || 3001;
 const public = path.join(__dirname, '../client/dist');
+const edamam= require('../edamam.config.js');
 
 app.use(express.static(public));
 
@@ -25,6 +27,24 @@ app.get('/recipes', (req, res) => {
     }
   });
 
+
+});
+
+app.post('/nutrition', (req, res) => {
+  const data = req.body;
+  data.app_id = edamam.ID;
+  data.app_key = edamam.KEY;
+  $.ajax({
+    method: 'post',
+    url: edamam.URL,
+    data,
+    success: (responseData) => {
+      res.status(200).send(responseData);
+    },
+    error: (err) => {
+      res.status(500).send(err);
+    }
+  });
 
 });
 
