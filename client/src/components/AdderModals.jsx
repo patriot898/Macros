@@ -28,7 +28,13 @@ const checkRecipe = (recipe, type) => {
     }
 };
 
-export default function RecipeModal(props) {
+const optionizeItem = (item, index) => {
+  return (
+    <option value={index.toString()}>{item.label}</option>
+  )
+}
+
+export function RecipeModal(props) {
   return (
     <Modal
       onHide={props.handleHide}
@@ -68,7 +74,7 @@ export default function RecipeModal(props) {
         <br></br>
         <InputLabel>Meal</InputLabel>
         <br></br>
-        <DropdownMenu id="meal">
+        <DropdownMenu id="meal" onChange={props.handleChange}>
           <option value="any">Any</option>
           <option value="breakfast">Breakfast</option>
           <option value="lunch-dinner">Lunch/Dinner</option>
@@ -91,7 +97,7 @@ export default function RecipeModal(props) {
   )
 }
 
-function ItemModal(props) {
+export function ItemModal(props) {
   return (
     <Modal
       onHide={props.handleHide}
@@ -103,26 +109,19 @@ function ItemModal(props) {
     >
       <ModalBody>
         <ModalHeader>Enter Item Information</ModalHeader>
-        <MacroDiv id="calories">Calories: {props.nutrition.calories} kCals</MacroDiv>
-        <MacroDiv id="carbs">Carbs: {parseInt(props.nutrition.totalNutrients.CHOCDF.quantity)}g</MacroDiv>
-        <MacroDiv id="fat">Fat: {parseInt(props.nutrition.totalNutrients.FAT.quantity)}g</MacroDiv>
-        <MacroDiv id="protein">Protein: {parseInt(props.nutrition.totalNutrients.PROCNT.quantity)}g</MacroDiv>
+        <MacroDiv id="calories">Calories: {props.selectedFoodItem.nutrients.ENERC_KCAL} kCals</MacroDiv>
+        <MacroDiv id="carbs">Carbs: {parseInt(props.selectedFoodItem.nutrients.CHOCDF)}g</MacroDiv>
+        <MacroDiv id="protein">Protein: {parseInt(props.selectedFoodItem.nutrients.PROCNT)}g</MacroDiv>
+        <MacroDiv id="fat">Fat: {parseInt(props.selectedFoodItem.nutrients.FAT)}g</MacroDiv>
 
         <br></br>
-        <label>Recipe Title</label>
+        <label>Item Title</label>
         <br></br>
         <InfoInput id="title" onChange={props.handleChange} defaultValue={props.title}></InfoInput>
         <br></br>
-        <label>Servings</label>
-        <br></br>
-        <InfoInput id="servings" onChange={props.handleChange} defaultValue={props.nutrition.yield}></InfoInput>
-        <label>Servings</label>
-        <br></br>
-        <InfoInput id="servings" onChange={props.handleChange} defaultValue={props.nutrition.yield}></InfoInput>
-        <br></br>
         <InputLabel>Type</InputLabel>
         <br></br>
-        <DropdownMenu id="type" onChange={props.handleChange} defaultValue="snack">
+        <DropdownMenu id="type" onChange={props.handleChange} defaultValue="side">
           <option value="main">Main</option>
           <option value="shake">Shake</option>
           <option value="snack">Snack</option>
@@ -136,20 +135,16 @@ function ItemModal(props) {
           <option value="breakfast">Breakfast</option>
           <option value="lunch-dinner">Lunch/Dinner</option>
         </DropdownMenu>
-        <DropdownMenu id="group" onChange={handleChange}>
+        <br></br>
+        <InputLabel>Group</InputLabel>
+        <br></br>
+        <DropdownMenu id="group" onChange={props.handleChange}>
           <option value="none">None</option>
           <option value="fruit">Fruit</option>
           <option value="vegetable">Vegetable</option>
           <option value="dairy">Dairy</option>
           <option value="protein">Protein</option>
           <option value="grain">Grain</option>
-        </DropdownMenu>
-        <br></br>
-        <InputLabel>Pairing</InputLabel>
-        <br></br>
-        <DropdownMenu id="pairing">
-          <option value="none">None</option>
-          {props.recipes.map((item) => checkRecipe(item, 'side'))}
         </DropdownMenu>
         <br></br>
         <br></br>
@@ -161,3 +156,4 @@ function ItemModal(props) {
     </Modal>
   )
 }
+

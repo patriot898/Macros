@@ -57,6 +57,7 @@ app.post('/nutrition', (req, res) => {
 });
 
 app.post('/recipes', (req, res) => {
+  console.log(req.body);
   controller.addRecipe(req.body, (err) => {
     if (err) {
       console.log(err);

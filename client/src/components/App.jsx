@@ -10,9 +10,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       dailyCalories: null,
-      recipes: [{name: 'none', type: 'none'}],
-      nutrition: testData,
-      showAddRecipeModal: false
+      recipes: [{ name: 'none', type: 'none' }],
+      nutrition: testData.testNutrition,
+      itemNutrition: testData.testItemNutrition,
+      showAddRecipeModal: false,
+      showAddItemModal: false,
     }
   }
 
@@ -31,6 +33,17 @@ class App extends React.Component {
       showAddRecipeModal: false
     });
   }
+  handleShowItemModal() {
+    this.setState({
+      showAddItemModal: true
+    });
+  }
+
+  handleHideItemModal() {
+    this.setState({
+      showAddItemModal: false
+    });
+  }
 
   evaluateRecipe(recipe) {
     // console.log(recipe);
@@ -38,11 +51,17 @@ class App extends React.Component {
       method: 'post',
       url: '/nutrition',
       data: recipe,
-      success: (nutrition) => {
-        console.log(nutrition);
-        this.setState({ nutrition }, () => {
-          this.handleShowRecipeModal();
-        });
+      success: (results) => {
+        console.log(results);
+        if (recipe.ingr.length > 1) {
+          this.setState({ nutrition: results }, () => {
+            this.handleShowRecipeModal();
+          });
+        } else {
+          this.setState({ itemNutrition: results }, () => {
+            this.handleShowItemModal();
+          });
+        }
       },
       dataType: 'json',
       error: (err) => {
@@ -59,7 +78,7 @@ class App extends React.Component {
       success: () => {
         alert("Recipe Added");
         this.setState({
-          nutrition: null
+          nutrition: testData.testNutrition
         });
       },
       error: (err) => {
@@ -94,17 +113,21 @@ class App extends React.Component {
     return (
       <div>
         <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
-        dailyCalories={this.state.dailyCalories}/>
-        <FoodDisplay recipes={this.state.recipes}/>
+          dailyCalories={this.state.dailyCalories} />
+        <FoodDisplay recipes={this.state.recipes} />
         <RecipeAdder
-        evaluate={this.evaluateRecipe.bind(this)}
-        addRecipe={this.addRecipe.bind(this)}
-        nutrition={this.state.nutrition}
-        recipes={this.state.recipes}
-        showAddRecipeModal={this.state.showAddRecipeModal}
-        handleHideRecipeModal={this.handleHideRecipeModal.bind(this)}
-        handleShowRecipeModal={this.handleShowRecipeModal.bind(this)}
-        getRecipes={this.getRecipes.bind(this)}
+          evaluate={this.evaluateRecipe.bind(this)}
+          addRecipe={this.addRecipe.bind(this)}
+          nutrition={this.state.nutrition}
+          itemNutrition={this.state.itemNutrition}
+          recipes={this.state.recipes}
+          showAddRecipeModal={this.state.showAddRecipeModal}
+          showAddItemModal={this.state.showAddItemModal}
+          handleHideRecipeModal={this.handleHideRecipeModal.bind(this)}
+          handleShowRecipeModal={this.handleShowRecipeModal.bind(this)}
+          handleHideItemModal={this.handleHideItemModal.bind(this)}
+          handleShowItemModal={this.handleShowItemModal.bind(this)}
+          getRecipes={this.getRecipes.bind(this)}
         />
       </div>
     )

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import RecipeModal from './AdderModals.jsx';
+import { RecipeModal, ItemModal } from './AdderModals.jsx';
 
 const Wrapper = styled.div`
   width: 20em;
@@ -76,13 +76,12 @@ class RecipeAdder extends React.Component {
       type: 'snack',
       group: 'none',
       pair: 'none',
+      meal: 'any',
       servings: this.props.nutrition.yield || 1,
       defaultServing: '1',
-      selectedFoodItem: null
+      selectedFoodItem: this.props.itemNutrition.hints[0].food
     }
   }
-
-
 
   handleChange(event) {
     this.setState({
@@ -141,6 +140,7 @@ class RecipeAdder extends React.Component {
 
   submitRecipe() {
     const recipe = {};
+    recipe.name = this.state.title;
     recipe.macros = {};
     recipe.macros.calories = this.props.nutrition.calories;
     recipe.macros.carbs = parseInt(this.props.nutrition.totalNutrients.CHOCDF.quantity);
@@ -152,10 +152,11 @@ class RecipeAdder extends React.Component {
     recipe.meal = this.state.meal
     recipe.pairing = {
       pair: this.state.pair,
-      mandatory: true
+      mandatory: false
     }
+    recipe.type = this.state.type;
     console.log(recipe);
-    this.props.handleHideRecipeModal();
+    //this.props.handleHideRecipeModal();
     this.props.addRecipe(recipe);
     // $.ajax({
     //   method: 'post',
@@ -196,6 +197,15 @@ class RecipeAdder extends React.Component {
           nutrition={this.props.nutrition}
           onSubmit={this.submitRecipe.bind(this)}
           recipes={this.props.recipes}
+          />
+        <ItemModal
+          show={this.props.showAddItemModal}
+          handleHide={this.props.handleHideItemModal}
+          title={this.state.title}
+          handleChange={this.handleChange.bind(this)}
+          itemNutrition={this.props.itemNutrition}
+          selectedFoodItem={this.state.selectedFoodItem}
+          onSubmit={this.submitRecipe.bind(this)}
           />
       </Wrapper>
     )
