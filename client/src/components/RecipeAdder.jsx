@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import AdderModal from './AdderModal.jsx';
+import RecipeModal from './AdderModals.jsx';
 
 const Wrapper = styled.div`
   width: 20em;
@@ -71,24 +71,23 @@ class RecipeAdder extends React.Component {
       counter: 0,
       addButtonText: 'Item',
       title: '',
-      showAdderModal: false
+      showAddRecipeModal: false
     }
   }
 
-  handleShowModal() {
+  handleShowRecipeModal() {
     this.setState({
-      showAdderModal: true
+      showAddRecipeModal: true
     });
   }
 
-  handleHideModal() {
+  handleHideRecipeModal() {
     this.setState({
-      showAdderModal: false
+      showAddRecipeModal: false
     });
   }
 
-  onTitleChange(event) {
-    console.log(event.target.value);
+  handleTitleChange(event) {
     this.setState({
       [event.target.id]: event.target.value
     });
@@ -140,8 +139,8 @@ class RecipeAdder extends React.Component {
     const recipe = {};
     recipe.ingr = ingredients;
     recipe.title = this.state.title;
-    this.handleShowModal();
-    this.props.evaluate(recipe);
+    this.handleShowRecipeModal();
+    // this.props.evaluate(recipe);
   }
 
   render() {
@@ -154,10 +153,17 @@ class RecipeAdder extends React.Component {
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
         <TitleDiv>
-          Recipe/Item Title<TitleInput id="title" onChange={this.props.onTitleChange} />
+          Recipe/Item Title<TitleInput id="title" onChange={this.handleTitleChange.bind(this)} />
         </TitleDiv>
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
-        <AdderModal showAdderModal={this.state.showAdderModal} handleHide={this.handleHideModal.bind(this)} />
+        <RecipeModal
+          show={this.state.showAddRecipeModal}
+          handleHide={this.handleHideRecipeModal.bind(this)}
+          title={this.state.title}
+          titleChange={this.handleTitleChange.bind(this)}
+          // add servings
+          />
+
       </Wrapper>
     )
   }
