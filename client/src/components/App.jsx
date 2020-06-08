@@ -50,7 +50,6 @@ class App extends React.Component {
         alert(JSON.stringify(err));
       }
     });
-
   }
 
   getRecipes() {

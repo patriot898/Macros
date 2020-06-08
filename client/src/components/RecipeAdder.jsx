@@ -19,7 +19,7 @@ const RemoveIngredientButton = styled.button`
   display: ${(props) => props.id === 'entry0' ? 'none' : 'block'};
   float: left;
   clear: right;
-`
+`;
 
 const ItemEntryInput = styled.input`
   width: 65%;
@@ -29,7 +29,7 @@ const ItemEntryInput = styled.input`
 
 const IngredientLineDiv = styled.div`
 
-`
+`;
 
 const EvaluateRecipeButton = styled.button`
 
@@ -159,9 +159,7 @@ class RecipeAdder extends React.Component {
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
         <AdderModal showAdderModal={this.state.showAdderModal} handleHide={this.handleHideModal.bind(this)} />
       </Wrapper>
-
     )
-
   }
 }
 

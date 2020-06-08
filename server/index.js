@@ -11,7 +11,8 @@ const port = process.env.PORT || 3001;
 const public = path.join(__dirname, '../client/dist');
 const edamam= require('../edamam.config.js');
 
-const nutritionURL= `${edamam.URL}?app_id=${edamam.ID}&app_key=${edamam.KEY}`
+const recipeURL= `${edamam.RECIPE_URL}?app_id=${edamam.RECIPE_ID}&app_key=${edamam.RECIPE_KEY}`
+const foodURL= `${edamam.FOOD_URL}?app_id=${edamam.FOOD_ID}&app_key=${edamam.FOOD_KEY}`
 
 app.use(express.static(public));
 app.use(express.urlencoded({ extended: true }));
@@ -30,36 +31,29 @@ app.get('/recipes', (req, res) => {
       res.status(200).send(recipes);
     }
   });
-
-
 });
 
 app.post('/nutrition', (req, res) => {
-  console.log(req);
-  axios.post(nutritionURL, req.body)
-    .then((response) => {
-      console.log(response.data);
-      res.status(200).send(response.data);
-    }).catch((err) => {
-      console.log(err);
-      res.status(500).send(err);
-    });
-  // $.ajax({
-  //   method: 'post',
-  //   url: `${edamam.URL}?app_id=${edamam.ID}&app_key=${edamam.KEY}`,
-  //   data: req.body,
-  //   dataType: 'json',
-  //   contentType: 'application/json',
-  //   success: (responseData) => {
-  //     console.log(responseData);
-  //     res.status(200).send(responseData);
-  //   },
-  //   error: (err) => {
-  //     console.log(err);
-  //     res.status(500).send(err);
-  //   }
-  // });
-
+  if (req.body.ingr.length > 1) {
+    axios.post(recipeURL, req.body)
+      .then((response) => {
+        console.log(response.data);
+        res.status(200).send(response.data);
+      }).catch((err) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+  } else {
+    const itemQuery = req.body.ingr[0].split(" ").join("%20");
+    axios.get(`${foodURL}&ingr=${itemQuery}`)
+      .then((response) => {
+        console.log(response.data);
+        res.status(200).send(response.data);
+      }).catch((err) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+  }
 });
 
 app.post('/recipes', (req, res) => {
