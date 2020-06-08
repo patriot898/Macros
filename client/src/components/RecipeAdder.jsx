@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-
+import AdderModal from './AdderModal.jsx';
 
 const Wrapper = styled.div`
   width: 20em;
@@ -40,7 +39,6 @@ const TypeDropdown = styled.select`
 
 `;
 
-
 const Header = styled.h2`
 
 `;
@@ -75,6 +73,12 @@ class RecipeAdder extends React.Component {
       title: '',
       showAdderModal: false
     }
+  }
+
+  handleShowModal() {
+    this.setState({
+      showAdderModal: true
+    });
   }
 
   onTitleChange(event) {

@@ -36,8 +36,9 @@ app.post('/nutrition', (req, res) => {
   data.app_key = edamam.KEY;
   $.ajax({
     method: 'post',
-    url: edamam.URL,
+    url: `${edamam.URL}?app_id=${edamam.ID}&app_key=${edamam.KEY}`,
     data,
+    dataType: 'json',
     success: (responseData) => {
       res.status(200).send(responseData);
     },
