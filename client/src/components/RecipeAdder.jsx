@@ -157,7 +157,7 @@ class RecipeAdder extends React.Component {
           Recipe/Item Title<TitleInput id="title" onChange={this.props.onTitleChange}/>
         </TitleDiv>
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
-        <AdderModal showAdderModal={this.state.showAdderModal} handleHide={this.handleHideModal.bind(this)} />
+
       </Wrapper>
     )
 

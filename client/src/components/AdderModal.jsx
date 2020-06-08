@@ -1,11 +1,20 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
+import ModalBody from "react-bootstrap/ModalBody"
 
 export default function AdderModal(props) {
   return (
-    <Modal show={props.showAdderModal}>
-      <h3>Enter Recipe Details</h3>
-      <button onClick={props.handleHide}>Click Me</button>
+    <Modal
+    onHide={props.handleHide}
+    show={props.showAdderModal}
+    onClose={props.handleHide}
+    size="lg"
+    centered="true"
+    animation="true"
+    closeButton={true}
+    >
+      <ModalBody>Here is the body</ModalBody>
+
 
     </Modal>
 
