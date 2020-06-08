@@ -81,6 +81,12 @@ class RecipeAdder extends React.Component {
     });
   }
 
+  handleHideModal() {
+    this.setState({
+      showAdderModal: false
+    });
+  }
+
   onTitleChange(event) {
     console.log(event.target.value);
     this.setState({
@@ -134,6 +140,7 @@ class RecipeAdder extends React.Component {
     const recipe = {};
     recipe.ingr = ingredients;
     recipe.title = this.state.title;
+    this.handleShowModal();
     //this.props.evaluate(recipe);
   }
 
@@ -150,6 +157,7 @@ class RecipeAdder extends React.Component {
           Recipe/Item Title<TitleInput id="title" onChange={this.props.onTitleChange}/>
         </TitleDiv>
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
+        <AdderModal showAdderModal={this.state.showAdderModal} handleHide={this.handleHideModal.bind(this)} />
       </Wrapper>
     )
 

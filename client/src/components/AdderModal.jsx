@@ -3,9 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 
 export default function AdderModal(props) {
   return (
-    <Modal show={props.showAdderModal} onHide={props.handleAdderModalHide}>
+    <Modal show={props.showAdderModal}>
       <h3>Enter Recipe Details</h3>
-      <button>Click Me</button>
+      <button onClick={props.handleHide}>Click Me</button>
 
     </Modal>
 
