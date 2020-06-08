@@ -19,6 +19,7 @@ class App extends React.Component {
   }
 
   evaluateRecipe(recipe) {
+    console.log(recipe);
     $.ajax({
       method: 'post',
       url: '/nutrition',
@@ -27,6 +28,7 @@ class App extends React.Component {
         console.log(nutrition);
         this.setState({ nutrition });
       },
+      dataType: 'json',
       error: (err) => {
         alert(err);
       }
@@ -45,7 +47,7 @@ class App extends React.Component {
         });
       },
       error: (err) => {
-        alert(err);
+        alert(JSON.stringify(err));
       }
     });
 
