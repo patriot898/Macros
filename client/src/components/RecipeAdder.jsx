@@ -76,17 +76,7 @@ class RecipeAdder extends React.Component {
     }
   }
 
-  handleShowRecipeModal() {
-    this.setState({
-      showAddRecipeModal: true
-    });
-  }
 
-  handleHideRecipeModal() {
-    this.setState({
-      showAddRecipeModal: false
-    });
-  }
 
   handleChange(event) {
     this.setState({
@@ -140,7 +130,6 @@ class RecipeAdder extends React.Component {
     const recipe = {};
     recipe.ingr = ingredients;
     recipe.title = this.state.title;
-    this.handleShowRecipeModal();
     this.props.evaluate(recipe);
   }
 
@@ -163,8 +152,8 @@ class RecipeAdder extends React.Component {
         </TitleDiv>
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
         <RecipeModal
-          show={this.state.showAddRecipeModal}
-          handleHide={this.handleHideRecipeModal.bind(this)}
+          show={this.props.showAddRecipeModal}
+          handleHide={this.props.handleHideRecipeModal}
           title={this.state.title}
           handleChange={this.handleChange.bind(this)}
           nutrition={this.props.nutrition}

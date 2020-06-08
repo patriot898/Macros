@@ -3,6 +3,7 @@ import $ from 'jquery';
 import TdeeCalculator from './TdeeCalculator.jsx';
 import FoodDisplay from './FoodDisplay.jsx';
 import RecipeAdder from './RecipeAdder.jsx';
+import testData from './testNutrition.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,12 +11,25 @@ class App extends React.Component {
     this.state = {
       dailyCalories: null,
       recipes: [{name: 'none', type: 'none'}],
-      nutrition: null,
+      nutrition: testData,
+      showAddRecipeModal: false
     }
   }
 
   componentDidMount() {
     this.getRecipes();
+  }
+
+  handleShowRecipeModal() {
+    this.setState({
+      showAddRecipeModal: true
+    });
+  }
+
+  handleHideRecipeModal() {
+    this.setState({
+      showAddRecipeModal: false
+    });
   }
 
   evaluateRecipe(recipe) {
@@ -26,17 +40,15 @@ class App extends React.Component {
       data: recipe,
       success: (nutrition) => {
         console.log(nutrition);
-        this.setState({ nutrition });
+        this.setState({ nutrition }, () => {
+          this.handleShowRecipeModal();
+        });
       },
       dataType: 'json',
       error: (err) => {
         alert(err);
       }
     });
-  }
-
-  setRecipes() {
-   this.recipes = this.state.recipes;
   }
 
   addRecipe(recipe) {
@@ -89,6 +101,9 @@ class App extends React.Component {
         add={this.addRecipe.bind(this)}
         nutrition={this.state.nutrition}
         recipes={this.state.recipes}
+        showAddRecipeModal={this.state.showAddRecipeModal}
+        handleHideRecipeModal={this.handleHideRecipeModal.bind(this)}
+        handleShowRecipeModal={this.handleShowRecipeModal.bind(this)}
         />
       </div>
     )
