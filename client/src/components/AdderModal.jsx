@@ -10,8 +10,6 @@ export default function AdderModal(props) {
     onClose={props.handleHide}
     size="lg"
     centered="true"
-    animation="true"
-    closeButton={true}
     >
       <ModalBody>Here is the body</ModalBody>
 

@@ -9,19 +9,19 @@ const Wrapper = styled.div`
   height: 20em;
 `;
 
-const AddIngredientButton = styled.button `
+const AddIngredientButton = styled.button`
    clear: both;
    display: block;
 
 `;
 
-const RemoveIngredientButton = styled.button `
+const RemoveIngredientButton = styled.button`
   display: ${(props) => props.id === 'entry0' ? 'none' : 'block'};
   float: left;
   clear: right;
 `
 
-const ItemEntryInput = styled.input `
+const ItemEntryInput = styled.input`
   width: 65%;
   float: left;
   clear: ${(props) => props.id === 'entry0' ? 'right' : 'none'};
@@ -43,11 +43,11 @@ const Header = styled.h2`
 
 `;
 
-const TitleDiv = styled.div `
+const TitleDiv = styled.div`
 
 `;
 
-const TitleInput = styled.input `
+const TitleInput = styled.input`
 
 `;
 
@@ -123,7 +123,7 @@ class RecipeAdder extends React.Component {
       return `entry${ingredient.id}` !== event.target.id;
     });
     let addButtonText = 'Recipe';
-    if(ingredients.length === 1) {
+    if (ingredients.length === 1) {
       addButtonText = 'Item';
     }
     this.setState({ ingredients, addButtonText });
@@ -149,16 +149,17 @@ class RecipeAdder extends React.Component {
       <Wrapper>
         <Header>Add A Recipe or Item</Header>
         {this.state.ingredients.map((ingredient) =>
-          <IngredientLine id={`entry${ingredient.id}`} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)}/>
+          <IngredientLine id={`entry${ingredient.id}`} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)} />
         )}
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
         <TitleDiv>
-          Recipe/Item Title<TitleInput id="title" onChange={this.props.onTitleChange}/>
+          Recipe/Item Title<TitleInput id="title" onChange={this.props.onTitleChange} />
         </TitleDiv>
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
-
+      <AdderModal showAdderModal={this.state.showAdderModal} handleHide={this.handleHideModal.bind(this)} />
       </Wrapper>
+
     )
 
   }
