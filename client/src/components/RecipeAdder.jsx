@@ -70,9 +70,15 @@ class RecipeAdder extends React.Component {
       }],
       counter: 0,
       addButtonText: 'Item',
+      showAddRecipeModal: false,
       title: '',
       servings: '',
-      showAddRecipeModal: false
+      type: 'snack',
+      group: 'none',
+      pair: 'none',
+      servings: this.props.nutrition.yield || 1,
+      defaultServing: '1',
+      selectedFoodItem: null
     }
   }
 
@@ -134,6 +140,20 @@ class RecipeAdder extends React.Component {
   }
 
   submitRecipe() {
+    const recipe = {};
+    recipe.macros.calories = this.props.nutrtion.calories;
+    recipe.macros.carbs = parseInt(this.props.nutrition.totalNutrients.CHOCDF.quantity);
+    recipe.macros.protein = parseInt(props.nutrition.totalNutrients.PROCNT.quantity)
+    recipe.macros.fat = parseInt(props.nutrition.totalNutrients.FAT.quantity);
+    recipe.group = this.state.group;
+    recipe.servings = parseInt(this.state.servings);
+    recipe.defaultServing = parseInt(this.state.defaultServing);
+    recipe.meal = this.state.meal
+    recipe.pairing = {
+      pair: this.state.pair,
+      mandatory: true
+    }
+
 
   }
 
@@ -148,6 +168,7 @@ class RecipeAdder extends React.Component {
         <br></br>
         <TitleDiv>
           <label>Recipe/Item Title</label>
+          <br></br>
           <TitleInput id="title" onChange={this.handleChange.bind(this)} />
         </TitleDiv>
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
@@ -160,7 +181,6 @@ class RecipeAdder extends React.Component {
           onSubmit={this.submitRecipe.bind(this)}
           recipes={this.props.recipes}
           />
-
       </Wrapper>
     )
   }

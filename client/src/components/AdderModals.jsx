@@ -41,10 +41,9 @@ export default function RecipeModal(props) {
       <ModalBody>
         <ModalHeader>Enter Recipe Information</ModalHeader>
         <MacroDiv id="calories">Calories: {props.nutrition.calories} kCals</MacroDiv>
-        <MacroDiv id="carbs">Carbs: {parseInt(props.nutrition.totalNutrients.CHOCDF.quantity)}</MacroDiv>
-        <MacroDiv id="fat">Fat: {parseInt(props.nutrition.totalNutrients.FAT.quantity)}</MacroDiv>
-        <MacroDiv id="protein">Protein: {parseInt(props.nutrition.totalNutrients.PROCNT.quantity)}</MacroDiv>
-
+        <MacroDiv id="carbs">Carbs: {parseInt(props.nutrition.totalNutrients.CHOCDF.quantity)}g</MacroDiv>
+        <MacroDiv id="protein">Protein: {parseInt(props.nutrition.totalNutrients.PROCNT.quantity)}g</MacroDiv>
+        <MacroDiv id="fat">Fat: {parseInt(props.nutrition.totalNutrients.FAT.quantity)}g</MacroDiv>
         <br></br>
         <label>Recipe Title</label>
         <br></br>
@@ -54,9 +53,13 @@ export default function RecipeModal(props) {
         <br></br>
         <InfoInput id="servings" onChange={props.handleChange} defaultValue={props.nutrition.yield}></InfoInput>
         <br></br>
+        <label>Default Servings per Meal</label>
+        <br></br>
+        <InfoInput id="defaultServing" onChange={props.handleChange} defaultValue="1"></InfoInput>
+        <br></br>
         <InputLabel>Type</InputLabel>
         <br></br>
-        <DropdownMenu id="type">
+        <DropdownMenu id="type" onChange={props.handleChange} defaultValue="side"> {/*need to make it so main can be default in recipeadder and snack can be default in itemadder*/}
           <option value="main">Main</option>
           <option value="shake">Shake</option>
           <option value="snack">Snack</option>
@@ -101,9 +104,9 @@ function ItemModal(props) {
       <ModalBody>
         <ModalHeader>Enter Item Information</ModalHeader>
         <MacroDiv id="calories">Calories: {props.nutrition.calories} kCals</MacroDiv>
-        <MacroDiv id="carbs">Carbs: {parseInt(props.nutrition.totalNutrients.CHOCDF.quantity)}</MacroDiv>
-        <MacroDiv id="fat">Fat: {parseInt(props.nutrition.totalNutrients.FAT.quantity)}</MacroDiv>
-        <MacroDiv id="protein">Protein: {parseInt(props.nutrition.totalNutrients.PROCNT.quantity)}</MacroDiv>
+        <MacroDiv id="carbs">Carbs: {parseInt(props.nutrition.totalNutrients.CHOCDF.quantity)}g</MacroDiv>
+        <MacroDiv id="fat">Fat: {parseInt(props.nutrition.totalNutrients.FAT.quantity)}g</MacroDiv>
+        <MacroDiv id="protein">Protein: {parseInt(props.nutrition.totalNutrients.PROCNT.quantity)}g</MacroDiv>
 
         <br></br>
         <label>Recipe Title</label>
@@ -113,10 +116,13 @@ function ItemModal(props) {
         <label>Servings</label>
         <br></br>
         <InfoInput id="servings" onChange={props.handleChange} defaultValue={props.nutrition.yield}></InfoInput>
+        <label>Servings</label>
+        <br></br>
+        <InfoInput id="servings" onChange={props.handleChange} defaultValue={props.nutrition.yield}></InfoInput>
         <br></br>
         <InputLabel>Type</InputLabel>
         <br></br>
-        <DropdownMenu id="type">
+        <DropdownMenu id="type" onChange={props.handleChange} defaultValue="snack">
           <option value="main">Main</option>
           <option value="shake">Shake</option>
           <option value="snack">Snack</option>
@@ -129,6 +135,14 @@ function ItemModal(props) {
           <option value="any">Any</option>
           <option value="breakfast">Breakfast</option>
           <option value="lunch-dinner">Lunch/Dinner</option>
+        </DropdownMenu>
+        <DropdownMenu id="group" onChange={handleChange}>
+          <option value="none">None</option>
+          <option value="fruit">Fruit</option>
+          <option value="vegetable">Vegetable</option>
+          <option value="dairy">Dairy</option>
+          <option value="protein">Protein</option>
+          <option value="grain">Grain</option>
         </DropdownMenu>
         <br></br>
         <InputLabel>Pairing</InputLabel>
