@@ -71,6 +71,7 @@ class RecipeAdder extends React.Component {
       counter: 0,
       addButtonText: 'Item',
       title: '',
+      servings: '',
       showAddRecipeModal: false
     }
   }
@@ -87,7 +88,7 @@ class RecipeAdder extends React.Component {
     });
   }
 
-  handleTitleChange(event) {
+  handleChange(event) {
     this.setState({
       [event.target.id]: event.target.value
     });
@@ -140,7 +141,11 @@ class RecipeAdder extends React.Component {
     recipe.ingr = ingredients;
     recipe.title = this.state.title;
     this.handleShowRecipeModal();
-    // this.props.evaluate(recipe);
+    this.props.evaluate(recipe);
+  }
+
+  submitRecipe() {
+
   }
 
   render() {
@@ -153,15 +158,18 @@ class RecipeAdder extends React.Component {
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
         <TitleDiv>
-          Recipe/Item Title<TitleInput id="title" onChange={this.handleTitleChange.bind(this)} />
+          <label>Recipe/Item Title</label>
+          <TitleInput id="title" onChange={this.handleChange.bind(this)} />
         </TitleDiv>
         <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
         <RecipeModal
           show={this.state.showAddRecipeModal}
           handleHide={this.handleHideRecipeModal.bind(this)}
           title={this.state.title}
-          titleChange={this.handleTitleChange.bind(this)}
-          // add servings
+          handleChange={this.handleChange.bind(this)}
+          nutrition={this.props.nutrition}
+          onSubmit={this.submitRecipe.bind(this)}
+          recipes={this.props.recipes}
           />
 
       </Wrapper>
