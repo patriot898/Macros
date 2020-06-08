@@ -141,10 +141,11 @@ class RecipeAdder extends React.Component {
 
   submitRecipe() {
     const recipe = {};
-    recipe.macros.calories = this.props.nutrtion.calories;
+    recipe.macros = {};
+    recipe.macros.calories = this.props.nutrition.calories;
     recipe.macros.carbs = parseInt(this.props.nutrition.totalNutrients.CHOCDF.quantity);
-    recipe.macros.protein = parseInt(props.nutrition.totalNutrients.PROCNT.quantity)
-    recipe.macros.fat = parseInt(props.nutrition.totalNutrients.FAT.quantity);
+    recipe.macros.protein = parseInt(this.props.nutrition.totalNutrients.PROCNT.quantity)
+    recipe.macros.fat = parseInt(this.props.nutrition.totalNutrients.FAT.quantity);
     recipe.group = this.state.group;
     recipe.servings = parseInt(this.state.servings);
     recipe.defaultServing = parseInt(this.state.defaultServing);
@@ -153,6 +154,21 @@ class RecipeAdder extends React.Component {
       pair: this.state.pair,
       mandatory: true
     }
+    console.log(recipe);
+    this.props.handleHideRecipeModal();
+    this.props.addRecipe(recipe);
+    // $.ajax({
+    //   method: 'post',
+    //   url: '/recipes',
+    //   data: recipe,
+    //   success: () => {
+    //     alert('successfully saved recipe');
+    //     this.props.getRecipes();
+    //   },
+    //   error: (err) => {
+
+    //   }
+    // })
 
 
   }

@@ -82,7 +82,7 @@ export default function RecipeModal(props) {
         </DropdownMenu>
         <br></br>
         <br></br>
-        <Button varient="primary">Submit</Button> {}
+        <Button varient="primary" onClick={props.onSubmit}>Submit</Button> {}
 
         <Button varient="danger" className="btn-danger" onClick={props.handleHide}>Cancel</Button>
         <br></br>

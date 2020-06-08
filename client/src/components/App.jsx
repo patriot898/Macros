@@ -98,12 +98,13 @@ class App extends React.Component {
         <FoodDisplay recipes={this.state.recipes}/>
         <RecipeAdder
         evaluate={this.evaluateRecipe.bind(this)}
-        add={this.addRecipe.bind(this)}
+        addRecipe={this.addRecipe.bind(this)}
         nutrition={this.state.nutrition}
         recipes={this.state.recipes}
         showAddRecipeModal={this.state.showAddRecipeModal}
         handleHideRecipeModal={this.handleHideRecipeModal.bind(this)}
         handleShowRecipeModal={this.handleShowRecipeModal.bind(this)}
+        getRecipes={this.getRecipes.bind(this)}
         />
       </div>
     )

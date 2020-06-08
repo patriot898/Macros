@@ -62,7 +62,7 @@ app.post('/recipes', (req, res) => {
       console.log(err);
       res.sendStatus(400);
     } else {
-      res.sendStatus(400);
+      res.sendStatus(200);
     }
   });
 });
