@@ -27,12 +27,13 @@ clear: right;
 `;
 
 const ItemEntryInput = styled.input`
-width: 65 %;
+width: 20em;
 float: left;
 clear: ${ (props) => props.id === 'entry0' ? 'right' : 'none' };
 `;
 
 const IngredientLineDiv = styled.div`
+  clear: right;
 
   `;
 
@@ -104,7 +105,7 @@ class RecipeAdder extends React.Component {
   onIngredientChange(event) {
     const ingredients = this.state.ingredients;
     const targetIndex = ingredients.findIndex((ingredient) => {
-      return `entry${ ingredient.id } ` === event.target.id;
+      return `entry${ ingredient.id }` === event.target.id;
     })
     ingredients[targetIndex].value = event.target.value;
     this.setState({ ingredients });
@@ -127,7 +128,7 @@ class RecipeAdder extends React.Component {
 
   removeIngredient(event) {
     const ingredients = this.state.ingredients.filter((ingredient) => {
-      return `entry${ ingredient.id } ` !== event.target.id;
+      return `entry${ ingredient.id }` !== event.target.id;
     });
     let addButtonText = 'Recipe';
     if (ingredients.length === 1) {
@@ -196,7 +197,7 @@ class RecipeAdder extends React.Component {
       <Wrapper>
         <Header>Add A Recipe or Item</Header>
         {this.state.ingredients.map((ingredient) =>
-          <IngredientLine id={`entry${ ingredient.id } `} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)} />
+          <IngredientLine id={`entry${ ingredient.id }`} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)} />
         )}
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
