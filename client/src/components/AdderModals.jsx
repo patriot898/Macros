@@ -155,7 +155,7 @@ export function ItemModal(props) {
         </DropdownMenu>
         <br></br>
         <br></br>
-        <Button varient="primary">Submit</Button> {}
+        <Button varient="primary" onClick={props.submitItem}>Submit</Button> {}
 
         <Button varient="danger" className="btn-danger" onClick={props.handleHide}>Cancel</Button>
         <br></br>

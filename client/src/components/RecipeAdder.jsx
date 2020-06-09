@@ -77,7 +77,7 @@ class RecipeAdder extends React.Component {
       group: 'none',
       pair: 'none',
       meal: 'any',
-      servings: this.props.nutrition.yield || 1,
+      servings: 1,
       defaultServing: '1',
       selectedFoodItem: this.props.itemNutrition.hints[0].food
     }
@@ -142,6 +142,23 @@ class RecipeAdder extends React.Component {
     recipe.ingr = ingredients;
     recipe.title = this.state.title;
     this.props.evaluate(recipe);
+  }
+
+  submitItem() {
+    const item = {};
+    item.name = this.state.title;
+    item.macros = {};
+    item.macros.calories = parseInt(this.state.selectedFoodItem.nutrients.ENERC_KCAL);
+    item.macros.carbs = parseInt(this.state.selectedFoodItem.nutrients.CHOCDF);
+    item.macros.protein = parseInt(this.state.selectedFoodItem.nutrients.PROCNT);
+    item.macros.fat = parseInt(this.state.selectedFoodItem.nutrients.FAT);
+    item.group = this.state.group;
+    item.servings = parseInt(this.state.servings);
+    item.defaultServing = parseInt(this.state.defaultServing);
+    item.meal = this.state.meal;
+    item.type = this.state.type;
+    console.log(item);
+    this.props.addRecipe(item);
   }
 
   submitRecipe() {
@@ -212,7 +229,7 @@ class RecipeAdder extends React.Component {
           handleItemChange={this.handleItemChange.bind(this)}
           itemNutrition={this.props.itemNutrition}
           selectedFoodItem={this.state.selectedFoodItem}
-          onSubmit={this.submitRecipe.bind(this)}
+          submitItem={this.submitItem.bind(this)}
           />
       </Wrapper>
     )
