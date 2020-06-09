@@ -100,7 +100,7 @@ class App extends React.Component {
           recipes
         }, ()=> {
           console.log(this.state.recipes);
-          console.log(planMaker(recipes))
+          console.log(planMaker(recipes, 2500))
         })
       },
       error: (err) => {

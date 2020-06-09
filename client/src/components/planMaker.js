@@ -1,9 +1,9 @@
 const planMaker = (recipes, goal) => {
-  const breakfasts = shuffle(recipes.filter((recipe) => filterByType(recipe, "main")).filter((recipe) => filterByMeal(recipe, "breakfast")));
-  const lunch_dinners = shuffle(recipes.filter((recipe) => filterByType(recipe, "main")).filter((recipe) => filterByMeal(recipe, "lunch-dinner")));
-  const shakes = shuffle(recipes.filter((recipe) => filterByType(recipe, "shake")));
-  const snacks = shuffle(recipes.filter((recipe) => filterByType(recipe, "snack")));
-  const sides = shuffle(recipes.filter((recipe) => filterByType(recipe, "side")));
+  let breakfasts = shuffle(recipes.filter((recipe) => filterByType(recipe, "main")).filter((recipe) => filterByMeal(recipe, "breakfast")));
+  let lunch_dinners = shuffle(recipes.filter((recipe) => filterByType(recipe, "main")).filter((recipe) => filterByMeal(recipe, "lunch-dinner")));
+  let shakes = shuffle(recipes.filter((recipe) => filterByType(recipe, "shake")));
+  let snacks = shuffle(recipes.filter((recipe) => filterByType(recipe, "snack")));
+  let sides = shuffle(recipes.filter((recipe) => filterByType(recipe, "side")));
 
   const mealPlan = {
     breakfast: [],
@@ -11,7 +11,8 @@ const planMaker = (recipes, goal) => {
     dinner: [],
     preWorkout: [],
     postWorkout: [],
-    snacks: []
+    snacks: [],
+    sides: []
   }
 
   let totalCalories = 0;
@@ -52,7 +53,7 @@ const planMaker = (recipes, goal) => {
     let lunchIterator = 0;
     let currentLunch = lunch_dinners[lunchIterator];
     let lunchCalories = currentLunch.macros.calories/currentLunch.servings*currentLunch.defaultServing;
-    mealPlan.lunch.push(currentlunch);
+    mealPlan.lunch.push(currentLunch);
     totalCalories += lunchCalories;
 
     while (isOver(totalCalories, goal)) {
@@ -81,7 +82,7 @@ const planMaker = (recipes, goal) => {
     let preWorkoutIterator = 0;
     let currentpreWorkout = shakes[preWorkoutIterator];
     let preWorkoutCalories = currentpreWorkout.macros.calories/currentpreWorkout.servings*currentpreWorkout.defaultServing;
-    mealPlan.shakes.push(currentpreWorkout);
+    mealPlan.preWorkout.push(currentpreWorkout);
     totalCalories += preWorkoutCalories;
 
     while (isOver(totalCalories, goal)) {
@@ -109,7 +110,7 @@ const planMaker = (recipes, goal) => {
     let postWorkoutIterator = 0;
     let currentpostWorkout = shakes[postWorkoutIterator];
     let postWorkoutCalories = currentpostWorkout.macros.calories/currentpostWorkout.servings*currentpostWorkout.defaultServing;
-    mealPlan.shakes.push(currentpostWorkout);
+    mealPlan.postWorkout.push(currentpostWorkout);
     totalCalories += postWorkoutCalories;
 
     while (isOver(totalCalories, goal)) {
@@ -329,14 +330,14 @@ const shuffle = (data) => {
 }
 
 const isOver = (current, goal) => {
-  if (current > goal * 1.05) {
+  if (current > goal * 1.1) {
     return true;
   }
   return false;
 }
 
 const isUnder = (current, goal) => {
-  if (current < goal * 0.95) {
+  if (current < goal * 0.90) {
     return true;
   }
   return false;
