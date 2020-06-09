@@ -79,7 +79,7 @@ class App extends React.Component {
         alert("Recipe Added");
         this.setState({
           nutrition: testData.testNutrition
-        });
+        })
       },
       error: (err) => {
         alert(JSON.stringify(err));

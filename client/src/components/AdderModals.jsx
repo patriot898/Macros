@@ -137,7 +137,7 @@ export function ItemModal(props) {
         <br></br>
         <InputLabel>Meal</InputLabel>
         <br></br>
-        <DropdownMenu id="meal">
+        <DropdownMenu id="meal" onChange={props.handleChange} defaultValue="any">
           <option value="any">Any</option>
           <option value="breakfast">Breakfast</option>
           <option value="lunch-dinner">Lunch/Dinner</option>

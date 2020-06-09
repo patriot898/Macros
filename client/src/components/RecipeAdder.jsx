@@ -73,7 +73,7 @@ class RecipeAdder extends React.Component {
       showAddRecipeModal: false,
       title: '',
       servings: '',
-      type: 'snack',
+      type: 'side',
       group: 'none',
       pair: 'none',
       meal: 'any',
@@ -81,6 +81,7 @@ class RecipeAdder extends React.Component {
       defaultServing: '1',
       selectedFoodItem: this.props.itemNutrition.hints[0].food
     }
+    this.baseState = this.state;
   }
 
   handleChange(event) {
@@ -158,6 +159,7 @@ class RecipeAdder extends React.Component {
     item.meal = this.state.meal;
     item.type = this.state.type;
     console.log(item);
+    this.props.handleHideItemModal();
     this.props.addRecipe(item);
   }
 
@@ -179,21 +181,8 @@ class RecipeAdder extends React.Component {
     }
     recipe.type = this.state.type;
     console.log(recipe);
-    //this.props.handleHideRecipeModal();
+    this.props.handleHideRecipeModal();
     this.props.addRecipe(recipe);
-    // $.ajax({
-    //   method: 'post',
-    //   url: '/recipes',
-    //   data: recipe,
-    //   success: () => {
-    //     alert('successfully saved recipe');
-    //     this.props.getRecipes();
-    //   },
-    //   error: (err) => {
-
-    //   }
-    // })
-
 
   }
 
