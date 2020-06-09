@@ -89,6 +89,12 @@ class RecipeAdder extends React.Component {
     });
   }
 
+  handleItemChange(event) {
+    this.setState({
+      [event.target.id]: this.props.itemNutrition.hints[parseInt(event.target.value)].food
+    });
+  }
+
   onIngredientChange(event) {
     const ingredients = this.state.ingredients;
     const targetIndex = ingredients.findIndex((ingredient) => {
@@ -203,6 +209,7 @@ class RecipeAdder extends React.Component {
           handleHide={this.props.handleHideItemModal}
           title={this.state.title}
           handleChange={this.handleChange.bind(this)}
+          handleItemChange={this.handleItemChange.bind(this)}
           itemNutrition={this.props.itemNutrition}
           selectedFoodItem={this.state.selectedFoodItem}
           onSubmit={this.submitRecipe.bind(this)}

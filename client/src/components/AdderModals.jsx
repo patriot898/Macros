@@ -30,7 +30,7 @@ const checkRecipe = (recipe, type) => {
 
 const optionizeItem = (item, index) => {
   return (
-    <option value={index.toString()}>{item.label}</option>
+    <option value={index.toString()}>{item.food.label}</option>
   )
 }
 
@@ -109,7 +109,14 @@ export function ItemModal(props) {
     >
       <ModalBody>
         <ModalHeader>Enter Item Information</ModalHeader>
-        <MacroDiv id="calories">Calories: {props.selectedFoodItem.nutrients.ENERC_KCAL} kCals</MacroDiv>
+
+        <InputLabel>Group</InputLabel>
+        <br></br>
+        <DropdownMenu id="selectedFoodItem" onChange={props.handleItemChange}>
+          {props.itemNutrition.hints.map((item, index) => optionizeItem(item, index))}
+        </DropdownMenu>
+        <br></br>
+        <MacroDiv id="calories">Calories: {parseInt(props.selectedFoodItem.nutrients.ENERC_KCAL)} kCals</MacroDiv>
         <MacroDiv id="carbs">Carbs: {parseInt(props.selectedFoodItem.nutrients.CHOCDF)}g</MacroDiv>
         <MacroDiv id="protein">Protein: {parseInt(props.selectedFoodItem.nutrients.PROCNT)}g</MacroDiv>
         <MacroDiv id="fat">Fat: {parseInt(props.selectedFoodItem.nutrients.FAT)}g</MacroDiv>
