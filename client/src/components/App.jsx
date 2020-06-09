@@ -17,6 +17,7 @@ class App extends React.Component {
       itemNutrition: testData.testItemNutrition,
       showAddRecipeModal: false,
       showAddItemModal: false,
+      showPlanModal: false,
       plan: testData.testPlan
     }
   }
@@ -40,6 +41,17 @@ class App extends React.Component {
     this.setState({
       showAddItemModal: true
     });
+  }
+
+  handleShowPlanModal() {
+    this.setState({
+      showPlanModal: true
+    })
+  }
+  handleHidePlanModal() {
+    this.setState({
+      showPlanModal: false
+    })
   }
 
   handleHideItemModal() {
@@ -114,6 +126,8 @@ class App extends React.Component {
     const plan = planMaker(this.state.recipes, dailyCalories);
     this.setState({
       plan
+    }, () => {
+      this.handleShowPlanModal();
     });
   }
 
@@ -121,9 +135,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
-          dailyCalories={this.state.dailyCalories} />
-        <PlanDisplay plan={this.state.plan} />
+        <TdeeCalculator
+          updateCalories={this.updateCalories.bind(this)}
+          dailyCalories={this.state.dailyCalories}
+          />
+        <PlanDisplay
+          plan={this.state.plan}
+          handleHide={this.handleHidePlanModal.bind(this)}
+          show={this.state.showPlanModal}
+          />
         <FoodDisplay recipes={this.state.recipes} />
         <RecipeAdder
           evaluate={this.evaluateRecipe.bind(this)}
