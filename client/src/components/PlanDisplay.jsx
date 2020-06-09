@@ -55,7 +55,7 @@ export default function PlanDisplay(props) {
       size="sm"
       centered="true">
       <ModalBody>
-          <ModalHeader>Meal Plan</ModalHeader>
+          <ModalHeader><h3>Meal Plan</h3></ModalHeader>
           <DisplayBlock>
             <Header id="breakfast">Breakfast</Header>
             {props.plan.breakfast.map((recipe) => <Recipe>{recipe.name}</Recipe>)}

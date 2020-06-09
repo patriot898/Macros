@@ -2,10 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  border: thin solid black;
-  background: grey;
-  width: fit-content;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, .15);
+  width: 25em;
+  border: 1px solid #ccc;
+  padding: 1em;
+  margin: 3em;
   display: inline-block;
+  vertical-align: top
 `;
 
 const InputContainer = styled.div`

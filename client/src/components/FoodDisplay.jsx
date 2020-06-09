@@ -12,8 +12,13 @@ const Recipe = styled.div `
 `;
 
 const Wrapper = styled.div `
-  border: thin solid black;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, .15);
   width: fit-content;
+  border: 1px solid #ccc;
+  padding: 1em;
+  margin: 3em;
   display: inline-block;
 `;
 
@@ -24,6 +29,7 @@ const Header = styled.h2`
 const DisplayBlock = styled.div`
   display: inline-block;
   padding: 1.5em;
+  vertical-align: top;
 `
 
 

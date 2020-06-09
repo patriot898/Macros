@@ -144,7 +144,6 @@ class App extends React.Component {
           handleHide={this.handleHidePlanModal.bind(this)}
           show={this.state.showPlanModal}
           />
-        <FoodDisplay recipes={this.state.recipes} />
         <RecipeAdder
           evaluate={this.evaluateRecipe.bind(this)}
           addRecipe={this.addRecipe.bind(this)}
@@ -159,6 +158,7 @@ class App extends React.Component {
           handleShowItemModal={this.handleShowItemModal.bind(this)}
           getRecipes={this.getRecipes.bind(this)}
         />
+        <FoodDisplay recipes={this.state.recipes} />
       </div>
     )
   }

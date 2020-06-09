@@ -3,53 +3,58 @@ import styled from 'styled-components';
 import { RecipeModal, ItemModal } from './AdderModals.jsx';
 
 const Wrapper = styled.div`
-  width: 20em;
-  background: alice-blue;
-  border: thin solid black;
-  height: 20em;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, .15);
+  width: 30em;
+  border: 1px solid #ccc;
+  padding: 1em;
+  margin: 3em;
+  display: inline-block;
+  vertical-align: top
 `;
 
 const AddIngredientButton = styled.button`
-   clear: both;
-   display: block;
+clear: both;
+display: block;
 
 `;
 
 const RemoveIngredientButton = styled.button`
-  display: ${(props) => props.id === 'entry0' ? 'none' : 'block'};
-  float: left;
-  clear: right;
+display: ${ (props) => props.id === 'entry0' ? 'none' : 'block' };
+float: left;
+clear: right;
 `;
 
 const ItemEntryInput = styled.input`
-  width: 65%;
-  float: left;
-  clear: ${(props) => props.id === 'entry0' ? 'right' : 'none'};
+width: 65 %;
+float: left;
+clear: ${ (props) => props.id === 'entry0' ? 'right' : 'none' };
 `;
 
 const IngredientLineDiv = styled.div`
 
-`;
+  `;
 
 const EvaluateRecipeButton = styled.button`
 
-`;
+  `;
 
 const TypeDropdown = styled.select`
 
-`;
+  `;
 
 const Header = styled.h2`
 
-`;
+  `;
 
 const TitleDiv = styled.div`
 
-`;
+  `;
 
 const TitleInput = styled.input`
 
-`;
+  `;
 
 const IngredientLine = (props) => {
   return (
@@ -99,7 +104,7 @@ class RecipeAdder extends React.Component {
   onIngredientChange(event) {
     const ingredients = this.state.ingredients;
     const targetIndex = ingredients.findIndex((ingredient) => {
-      return `entry${ingredient.id}` === event.target.id;
+      return `entry${ ingredient.id } ` === event.target.id;
     })
     ingredients[targetIndex].value = event.target.value;
     this.setState({ ingredients });
@@ -122,7 +127,7 @@ class RecipeAdder extends React.Component {
 
   removeIngredient(event) {
     const ingredients = this.state.ingredients.filter((ingredient) => {
-      return `entry${ingredient.id}` !== event.target.id;
+      return `entry${ ingredient.id } ` !== event.target.id;
     });
     let addButtonText = 'Recipe';
     if (ingredients.length === 1) {
@@ -191,7 +196,7 @@ class RecipeAdder extends React.Component {
       <Wrapper>
         <Header>Add A Recipe or Item</Header>
         {this.state.ingredients.map((ingredient) =>
-          <IngredientLine id={`entry${ingredient.id}`} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)} />
+          <IngredientLine id={`entry${ ingredient.id } `} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)} />
         )}
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
         <br></br>
