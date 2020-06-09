@@ -4,6 +4,7 @@ import TdeeCalculator from './TdeeCalculator.jsx';
 import FoodDisplay from './FoodDisplay.jsx';
 import RecipeAdder from './RecipeAdder.jsx';
 import testData from './testNutrition.js';
+import planMaker from './planMaker.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -78,7 +79,10 @@ class App extends React.Component {
       success: () => {
         alert("Recipe Added");
         this.setState({
-          nutrition: testData.testNutrition
+          nutrition: testData.testNutrition,
+          itemNutrition: testData.itemNutrition
+        }, () => {
+          this.getRecipes()
         })
       },
       error: (err) => {
@@ -94,6 +98,9 @@ class App extends React.Component {
       success: (recipes) => {
         this.setState({
           recipes
+        }, ()=> {
+          console.log(this.state.recipes);
+          console.log(planMaker(recipes))
         })
       },
       error: (err) => {
