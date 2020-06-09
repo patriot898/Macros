@@ -3,6 +3,7 @@ import $ from 'jquery';
 import TdeeCalculator from './TdeeCalculator.jsx';
 import FoodDisplay from './FoodDisplay.jsx';
 import RecipeAdder from './RecipeAdder.jsx';
+import PlanDisplay from './PlanDisplay.jsx';
 import testData from './testNutrition.js';
 import planMaker from './planMaker.js';
 
@@ -16,6 +17,7 @@ class App extends React.Component {
       itemNutrition: testData.testItemNutrition,
       showAddRecipeModal: false,
       showAddItemModal: false,
+      plan: testData.testPlan
     }
   }
 
@@ -71,6 +73,8 @@ class App extends React.Component {
     });
   }
 
+
+
   addRecipe(recipe) {
     $.ajax({
       method: 'post',
@@ -80,7 +84,7 @@ class App extends React.Component {
         alert("Recipe Added");
         this.setState({
           nutrition: testData.testNutrition,
-          itemNutrition: testData.itemNutrition
+          itemNutrition: testData.testItemNutrition
         }, () => {
           this.getRecipes()
         })
@@ -98,9 +102,6 @@ class App extends React.Component {
       success: (recipes) => {
         this.setState({
           recipes
-        }, ()=> {
-          console.log(this.state.recipes);
-          console.log(planMaker(recipes, 2500))
         })
       },
       error: (err) => {
@@ -110,8 +111,9 @@ class App extends React.Component {
   }
 
   updateCalories(dailyCalories) {
+    const plan = planMaker(this.state.recipes, dailyCalories);
     this.setState({
-      dailyCalories
+      plan
     });
   }
 
@@ -121,6 +123,7 @@ class App extends React.Component {
       <div>
         <TdeeCalculator updateCalories={this.updateCalories.bind(this)}
           dailyCalories={this.state.dailyCalories} />
+        <PlanDisplay plan={this.state.plan} />
         <FoodDisplay recipes={this.state.recipes} />
         <RecipeAdder
           evaluate={this.evaluateRecipe.bind(this)}

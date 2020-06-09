@@ -44,7 +44,8 @@ class TdeeCalculator extends React.Component {
       exerciseLevel: '1.2',
       goal: '1',
       bmr: null,
-      tdee: null
+      tdee: null,
+      dcr: null
     }
   }
 
@@ -59,11 +60,11 @@ class TdeeCalculator extends React.Component {
     event.preventDefault();
     const bmr = parseInt(parseInt(this.state.weight) / 2.2 * (1 - this.state.bodyFat / 100) * 21 + 370); // Katch-Mcardle Equation
     const tdee = parseInt(bmr * parseFloat(this.state.exerciseLevel));
-    const dailyCalories = parseInt(tdee * parseFloat(this.state.goal));
+    const dcr = parseInt(tdee * parseFloat(this.state.goal));
     this.setState({
-      tdee, bmr
+      tdee, bmr, dcr
     })
-    this.props.updateCalories(dailyCalories);
+    this.props.updateCalories(dcr);
   }
 
   reset() {
@@ -106,7 +107,7 @@ class TdeeCalculator extends React.Component {
         <CalculatedDisplay>
           <CalculatedValue id="bmr">BMR: {this.state.bmr}</CalculatedValue>
           <CalculatedValue id="tdee">TDEE: {this.state.tdee}</CalculatedValue>
-          <CalculatedValue id="dailyCalories">Daily Caloric Requirement: {this.props.dailyCalories}</CalculatedValue>
+          <CalculatedValue id="dailyCalories">Daily Caloric Requirement: {this.state.dcr}</CalculatedValue>
         </CalculatedDisplay>
       </Wrapper>
     )

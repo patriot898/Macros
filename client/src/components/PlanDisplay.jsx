@@ -16,6 +16,9 @@ const DisplayBlock = styled.div`
   padding: 1.5em;
 `;
 
+const MacroBlock = styled.div`
+`
+
 const Recipe = styled.div `
 
 `;
@@ -39,39 +42,38 @@ const CalcMacros = (plan) => {
   return macros;
 }
 
-const checkRecipe = (recipe, type) => {
-  if (recipe.type === type) {
-    return (<Recipe>{recipe.name}</Recipe>);
-  }
-};
 
 export default function PlanDisplay(props) {
   return (
     <Wrapper>
        <DisplayBlock>
         <Header id="breakfast">Breakfast</Header>
-        {recipes.breakfast.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
+        {props.plan.breakfast.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
       </DisplayBlock>
       <DisplayBlock>
         <Header id="lunch">Lunch/Dinner</Header>
-        {recipes.lunch.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
+        {props.plan.lunch.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
       </DisplayBlock>
       <DisplayBlock>
         <Header id="preworkout">Pre-Workout</Header>
-        {recipes.preworkout.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
+        {props.plan.preWorkout.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
       </DisplayBlock>
       <DisplayBlock>
         <Header id="postworkout">Post Workout</Header>
-        {recipes.postworkout.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
+        {props.plan.postWorkout.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
       </DisplayBlock>
       <DisplayBlock>
         <Header id="snacks">Snacks</Header>
-        {recipes.snacks.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
+        {props.plan.snacks.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
       </DisplayBlock>
       <DisplayBlock>
         <Header id="sides">Sides</Header>
-        {recipes.sides.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
+        {props.plan.sides.map((recipe) => <Recipe>{recipe.name}</Recipe>)}
       </DisplayBlock>
+      <MacroBlock>Calories: {parseInt(CalcMacros(props.plan).calories)}kCal</MacroBlock>
+      <MacroBlock>Carbs: {parseInt(CalcMacros(props.plan).carbs)}g</MacroBlock>
+      <MacroBlock>Protein: {parseInt(CalcMacros(props.plan).protein)}g</MacroBlock>
+      <MacroBlock>Fat: {parseInt(CalcMacros(props.plan).fat)}g</MacroBlock>
     </Wrapper>
   )
 

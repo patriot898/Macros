@@ -95,18 +95,26 @@ const testNutrition = {
 
 const testItemNutrition = {
   text: 'trader joes greek yogurt',
-  parsed: [ { food: [Object] } ],
+  parsed: [{ food: [Object] }],
   hints: [
-    { food: {
-      label: "Trader Joe's Greek Yogurt Honey",
-      nutrients: {
-        ENERC_KCAL: 80,
-        PROCNT: 9.33333,
-        FAT: 0,
-        CHOCDF: 11.3333
-      }
-    }, measures: [] }
+    {
+      food: {
+        label: "Trader Joe's Greek Yogurt Honey",
+        nutrients: {
+          ENERC_KCAL: 80,
+          PROCNT: 9.33333,
+          FAT: 0,
+          CHOCDF: 11.3333
+        }
+      }, measures: []
+    }
   ]
 }
 
-export default { testNutrition, testItemNutrition } ;
+const testPlan =
+  { "breakfast":[],
+  "lunch": [], "dinner": [], "preWorkout": [], "postWorkout":
+  [], "snacks": [], "sides": [] }
+
+
+export default { testNutrition, testItemNutrition, testPlan };
