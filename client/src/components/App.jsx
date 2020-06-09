@@ -4,6 +4,7 @@ import TdeeCalculator from './TdeeCalculator.jsx';
 import FoodDisplay from './FoodDisplay.jsx';
 import RecipeAdder from './RecipeAdder.jsx';
 import PlanDisplay from './PlanDisplay.jsx';
+import Toolbar from './Toolbar.jsx';
 import testData from './testNutrition.js';
 import planMaker from './planMaker.js';
 
@@ -18,6 +19,9 @@ class App extends React.Component {
       showAddRecipeModal: false,
       showAddItemModal: false,
       showPlanModal: false,
+      showCalculator: true,
+      showDatabase: false,
+      showAdder: false,
       plan: testData.testPlan
     }
   }
@@ -43,6 +47,12 @@ class App extends React.Component {
     });
   }
 
+  handleHideItemModal() {
+    this.setState({
+      showAddItemModal: false
+    });
+  }
+
   handleShowPlanModal() {
     this.setState({
       showPlanModal: true
@@ -53,12 +63,43 @@ class App extends React.Component {
       showPlanModal: false
     })
   }
-
-  handleHideItemModal() {
+  handleShowCalculator() {
     this.setState({
-      showAddItemModal: false
-    });
+      showCalculator: true,
+      showAdder: false,
+      showDatabase: false
+    })
   }
+  handleHideCalculator() {
+    this.setState({
+      showCalculator: false
+    })
+  }
+  handleShowDatabase() {
+    this.setState({
+      showDatabase: true,
+      showAdder: false,
+      showCalculator: false
+    })
+  }
+  handleHideDatabase() {
+    this.setState({
+      showDatabase: false
+    })
+  }
+  handleShowAdder() {
+    this.setState({
+      showAdder: true,
+      showDatabase: false,
+      showCalculator: false
+    })
+  }
+  handleHideAdder() {
+    this.setState({
+      showAdder: false
+    })
+  }
+
 
   evaluateRecipe(recipe) {
     // console.log(recipe);
@@ -135,9 +176,19 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Toolbar
+          handleShowAdder={this.handleShowAdder.bind(this)}
+          handleHideAdder={this.handleHideAdder.bind(this)}
+          handleShowCalculator={this.handleShowCalculator.bind(this)}
+          handleHideCalculator={this.handleHideCalculator.bind(this)}
+          handleShowDatabase={this.handleShowDatabase.bind(this)}
+          handleHideDatabase={this.handleHideDatabase.bind(this)}
+
+         />
         <TdeeCalculator
           updateCalories={this.updateCalories.bind(this)}
           dailyCalories={this.state.dailyCalories}
+          show={this.state.showCalculator}
           />
         <PlanDisplay
           plan={this.state.plan}
@@ -157,8 +208,12 @@ class App extends React.Component {
           handleHideItemModal={this.handleHideItemModal.bind(this)}
           handleShowItemModal={this.handleShowItemModal.bind(this)}
           getRecipes={this.getRecipes.bind(this)}
+          show={this.state.showAdder}
         />
-        <FoodDisplay recipes={this.state.recipes} />
+        <FoodDisplay
+          recipes={this.state.recipes}
+          show={this.state.showDatabase}
+          />
       </div>
     )
   }

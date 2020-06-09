@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from 'react-bootstrap/Button'
 import { RecipeModal, ItemModal } from './AdderModals.jsx';
 
 const Wrapper = styled.div`
@@ -10,34 +11,41 @@ const Wrapper = styled.div`
   border: 1px solid #ccc;
   padding: 1em;
   margin: 3em;
-  display: inline-block;
-  vertical-align: top
+  display: ${ (props) => props.show ? 'inline-block' : 'none'} ;
+  vertical-align: top;
+
 `;
 
 const AddIngredientButton = styled.button`
-clear: both;
-display: block;
+  clear: both;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, .15);
 
 `;
 
-const RemoveIngredientButton = styled.button`
-display: ${ (props) => props.id === 'entry0' ? 'none' : 'block' };
-float: left;
-clear: right;
+const RemoveIngredientButton = styled(Button)`
+  display: ${ (props) => props.id === 'entry0' ? 'none' : 'block' };
+  float: left;
+  clear: right;
+  margin-top: 2px;
 `;
 
 const ItemEntryInput = styled.input`
-width: 20em;
-float: left;
-clear: ${ (props) => props.id === 'entry0' ? 'right' : 'none' };
+  width: 20em;
+  float: left;
+  clear: ${ (props) => props.id === 'entry0' ? 'right' : 'none' };
+  height: 35px;
 `;
 
 const IngredientLineDiv = styled.div`
   clear: right;
+  margin-bottom: 6px;
 
   `;
 
-const EvaluateRecipeButton = styled.button`
+const EvaluateRecipeButton = styled(Button)`
+  margin: auto;
 
   `;
 
@@ -54,6 +62,7 @@ const TitleDiv = styled.div`
   `;
 
 const TitleInput = styled.input`
+  height: 38px;
 
   `;
 
@@ -61,7 +70,7 @@ const IngredientLine = (props) => {
   return (
     <IngredientLineDiv>
       <ItemEntryInput id={props.id} value={props.value} onChange={props.change} />
-      <RemoveIngredientButton id={props.id} onClick={props.remove}>Remove</RemoveIngredientButton>
+      <RemoveIngredientButton varient="danger" className="btn-danger" size="sm" id={props.id} onClick={props.remove}>Remove</RemoveIngredientButton>
     </IngredientLineDiv>
   )
 }
@@ -194,7 +203,7 @@ class RecipeAdder extends React.Component {
 
   render() {
     return (
-      <Wrapper>
+      <Wrapper show={this.props.show}>
         <Header>Add A Recipe or Item</Header>
         {this.state.ingredients.map((ingredient) =>
           <IngredientLine id={`entry${ ingredient.id }`} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)} />
@@ -206,7 +215,7 @@ class RecipeAdder extends React.Component {
           <br></br>
           <TitleInput id="title" onChange={this.handleChange.bind(this)} />
         </TitleDiv>
-        <EvaluateRecipeButton onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
+        <EvaluateRecipeButton varient="success" className="btn-success" onClick={this.evaluateRecipe.bind(this)}>Evaluate {this.state.addButtonText}</EvaluateRecipeButton>
         <RecipeModal
           show={this.props.showAddRecipeModal}
           handleHide={this.props.handleHideRecipeModal}

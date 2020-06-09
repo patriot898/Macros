@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   border: 1px solid #ccc;
   padding: 1em;
   margin: 3em;
-  display: inline-block;
+  display: ${ (props) => props.show ? 'inline-block' : 'none'} ;
   vertical-align: top
 `;
 
@@ -22,6 +22,7 @@ const StatInput = styled.input`
 `;
 
 const InputLabel = styled.label`
+  margin-right: 0.5em;
 `;
 
 const CalcForm = styled.form`
@@ -37,7 +38,7 @@ const CalculatedDisplay = styled.div`
   width: 20em;
 `;
 
-const CalculatedValue = styled.h3`
+const CalculatedValue = styled.h4`
 `
 
 class TdeeCalculator extends React.Component {
@@ -79,7 +80,7 @@ class TdeeCalculator extends React.Component {
 
   render() {
     return (
-      <Wrapper>
+      <Wrapper show={this.props.show}>
         <CalcForm>
           <InputContainer>
             <InputLabel>Weight (lbs)</InputLabel>

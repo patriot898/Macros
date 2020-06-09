@@ -19,7 +19,7 @@ const Wrapper = styled.div `
   border: 1px solid #ccc;
   padding: 1em;
   margin: 3em;
-  display: inline-block;
+  display: ${ (props) => props.show ? 'inline-block' : 'none'} ;
 `;
 
 const Header = styled.h2`
@@ -34,9 +34,9 @@ const DisplayBlock = styled.div`
 
 
 
-const FoodDisplay = ( {recipes} ) => {
+const FoodDisplay = ( {recipes, show} ) => {
   return (
-    <Wrapper>
+    <Wrapper show={show}>
       <DisplayBlock>
         <Header id="mains">Main Courses</Header>
         {recipes.map((recipe) => checkRecipe(recipe, 'main'))}
@@ -54,7 +54,6 @@ const FoodDisplay = ( {recipes} ) => {
         {recipes.map((recipe) => checkRecipe(recipe, 'snack'))}
       </DisplayBlock>
     </Wrapper>
-
   )
 }
 
