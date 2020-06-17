@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: 25em;
   border: 1px solid #ccc;
   padding: 1em;
-  margin: 3em;
+  margin-left: 3em;
   display: ${ (props) => props.show ? 'inline-block' : 'none'} ;
   vertical-align: top
 `;
@@ -32,10 +32,12 @@ const Dropdown = styled.select`
 `;
 
 const CalculateButton = styled.button`
+border-radius: 4px;
 `;
 
 const CalculatedDisplay = styled.div`
   width: 20em;
+  display: ${ (props) => props.show ? 'inline-block' : 'none'}
 `;
 
 const CalculatedValue = styled.h4`
@@ -51,7 +53,8 @@ class TdeeCalculator extends React.Component {
       goal: '1',
       bmr: null,
       tdee: null,
-      dcr: null
+      dcr: null,
+      showMacros: false
     }
   }
 
@@ -68,7 +71,7 @@ class TdeeCalculator extends React.Component {
     const tdee = parseInt(bmr * parseFloat(this.state.exerciseLevel));
     const dcr = parseInt(tdee * parseFloat(this.state.goal));
     this.setState({
-      tdee, bmr, dcr
+      tdee, bmr, dcr, showMacros: true
     })
     this.props.updateCalories(dcr);
   }
@@ -110,7 +113,7 @@ class TdeeCalculator extends React.Component {
           </InputContainer>
           <CalculateButton onClick={this.calculate.bind(this)}>Calculate</CalculateButton>
         </CalcForm>
-        <CalculatedDisplay>
+        <CalculatedDisplay show={this.state.showMacros}>
           <CalculatedValue id="bmr">BMR: {this.state.bmr}</CalculatedValue>
           <CalculatedValue id="tdee">TDEE: {this.state.tdee}</CalculatedValue>
           <CalculatedValue id="dailyCalories">Daily Caloric Requirement: {this.state.dcr}</CalculatedValue>

@@ -10,7 +10,8 @@ const Wrapper = styled.div`
 `;
 
 const SelectButton = styled(Button)`
-padding-right: 0.25em;
+margin-right: 1em;
+width: 10em;
 
 `;
 

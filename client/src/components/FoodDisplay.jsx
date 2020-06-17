@@ -18,7 +18,7 @@ const Wrapper = styled.div `
   width: fit-content;
   border: 1px solid #ccc;
   padding: 1em;
-  margin: 3em;
+  margin-left: 3em;
   display: ${ (props) => props.show ? 'inline-block' : 'none'} ;
 `;
 

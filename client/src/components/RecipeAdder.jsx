@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   width: 30em;
   border: 1px solid #ccc;
   padding: 1em;
-  margin: 3em;
+  margin-left: 3em;
   display: ${ (props) => props.show ? 'inline-block' : 'none'} ;
   vertical-align: top;
 
@@ -21,6 +21,7 @@ const AddIngredientButton = styled.button`
   display: block;
   border-radius: 4px;
   box-shadow: 0 0 18px rgba(0, 0, 0, .15);
+  margin-top: 4px;
 
 `;
 
@@ -40,7 +41,7 @@ const ItemEntryInput = styled.input`
 
 const IngredientLineDiv = styled.div`
   clear: right;
-  margin-bottom: 6px;
+  margin-bottom: 25x;
 
   `;
 
@@ -208,7 +209,10 @@ class RecipeAdder extends React.Component {
         {this.state.ingredients.map((ingredient) =>
           <IngredientLine id={`entry${ ingredient.id }`} value={ingredient.value} change={this.onIngredientChange.bind(this)} remove={this.removeIngredient.bind(this)} />
         )}
+        <div>
         <AddIngredientButton onClick={this.addIngredient.bind(this)}>Add Ingredient</AddIngredientButton>
+
+        </div>
         <br></br>
         <TitleDiv>
           <label>Recipe/Item Title</label>
