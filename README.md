@@ -5,20 +5,20 @@ A personal React.js App used to assess recipes, store recipes and individual foo
 **Technologies**
 
 *Core Services*
-→ Node.js
-→ MongoDB
+- Node.js
+- MongoDB
 
 *Modules*
-→ Webpack
-→ Babel
-→ React
-→ React-dom
-→ React Bootstrap
-→ Nodemon
-→ Mongoose
-→ Styled-components
-→ Axios
-→ Express
+- Webpack
+- Babel
+- React
+- React-dom
+- React Bootstrap
+- Nodemon
+- Mongoose
+- Styled-components
+- Axios
+- Express
 
 *External APIs*
-→ Edamam - used to calculate macronutrient and micronutrient breakdown of recipes by taking in an array of ingredients as strings. Returns an object with gram values for different micronutrients and macronutrients such as protein, carbohydrates, and calcium
+- Edamam - used to calculate macronutrient and micronutrient breakdown of recipes by taking in an array of ingredients as strings. Returns an object with gram values for different micronutrients and macronutrients such as protein, carbohydrates, and calcium
