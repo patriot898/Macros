@@ -17,283 +17,348 @@ const planMaker = (recipes, goal) => {
 
   let totalCalories = 0;
   let met = false;
+  let breakfastIterator = 0;
+  let lunchIterator = 0;
+  let shakeIterator = 0;
+  let snacksIterator = 0;
+  let sidesIterator = 0;
+  debugger;
 
   while (!met) {
 
     //BREAKFAST
-    if (mealPlan.breakfast.length) {
+    if (mealPlan.breakfast.length > 0) {
       mealPlan.breakfast.pop();
+      totalCalories -= breakfastCalories;
     }
-    let breakfastIterator = 0;
+
+    if (breakfastIterator >= breakfasts.length) {
+      breakfasts = shuffle(breakfasts);
+      breakfastIterator = 0;
+    }
+
     let currentBreakfast = breakfasts[breakfastIterator];
-    let breakfastCalories = currentBreakfast.macros.calories/currentBreakfast.servings*currentBreakfast.defaultServing;
+    let breakfastCalories = currentBreakfast.macros.calories / currentBreakfast.servings * currentBreakfast.defaultServing;
     mealPlan.breakfast.push(currentBreakfast);
     totalCalories += breakfastCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= breakfastCalories
       breakfastIterator += 1;
+      if (breakfastIterator >= breakfasts.length) {
+        breakfasts = shuffle(breakfasts);
+        breakfastIterator = 0;
+      }
       currentBreakfast = breakfasts[breakfastIterator];
-      breakfastCalories = currentBreakfast.macros.calories/currentBreakfast.servings*currentBreakfast.defaultServing;
+      breakfastCalories = currentBreakfast.macros.calories / currentBreakfast.servings * currentBreakfast.defaultServing;
       totalCalories += breakfastCalories;
       mealPlan.breakfast.pop();
       mealPlan.breakfast.push(currentBreakfast);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
+    breakfastIterator += 1;
+
     //LUNCH
 
-    if (mealPlan.lunch.length) {
+    if (mealPlan.lunch.length > 0) {
       mealPlan.lunch.pop();
+      totalCalories -= lunchCalories;
     }
 
-    let lunchIterator = 0;
+    if (lunchIterator >= lunch_dinners.length) {
+      lunch_dinners = shuffle(lunch_dinners);
+      lunchIterator = 0;
+    }
+
     let currentLunch = lunch_dinners[lunchIterator];
-    let lunchCalories = currentLunch.macros.calories/currentLunch.servings*currentLunch.defaultServing;
+    let lunchCalories = currentLunch.macros.calories / currentLunch.servings * currentLunch.defaultServing;
     mealPlan.lunch.push(currentLunch);
     totalCalories += lunchCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= lunchCalories
       lunchIterator += 1;
-      if(lunchIterator >= lunch_dinners.length) {
+      if (lunchIterator >= lunch_dinners.length) {
         lunch_dinners = shuffle(lunch_dinners);
         lunchIterator = 0;
       }
       currentlunch = breakfasts[lunchIterator];
-      lunchCalories = currentLunch.macros.calories/currentLunch.servings*currentLunch.defaultServing;
+      lunchCalories = currentLunch.macros.calories / currentLunch.servings * currentLunch.defaultServing;
       totalCalories += lunchCalories;
       mealPlan.lunch.pop();
       mealPlan.lunch.push(currentLunch);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
+    lunchIterator += 1;
 
-    if (mealPlan.preWorkout.length) {
-      mealPlan.preWorkout.pop();
+    //PREWORKOUT
+
+    if (shakeIterator >= shakes.length) {
+      shakes = shuffle(shakes);
+      shakeIterator = 0;
     }
 
-    let preWorkoutIterator = 0;
-    let currentpreWorkout = shakes[preWorkoutIterator];
-    let preWorkoutCalories = currentpreWorkout.macros.calories/currentpreWorkout.servings*currentpreWorkout.defaultServing;
+    if (mealPlan.preWorkout.length > 0) {
+      mealPlan.preWorkout.pop();
+      totalCalories -= preWorkoutCalories;
+    }
+
+    let currentpreWorkout = shakes[shakeIterator];
+    let preWorkoutCalories = currentpreWorkout.macros.calories / currentpreWorkout.servings * currentpreWorkout.defaultServing;
     mealPlan.preWorkout.push(currentpreWorkout);
     totalCalories += preWorkoutCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= preWorkoutCalories
-      preWorkoutIterator += 1;
-      if(preWorkoutIterator >= shakes.length) {
+      shakeIterator += 1;
+      if (shakeIterator >= shakes.length) {
         shakes = shuffle(shakes);
-        preWorkoutIterator = 0;
+        shakeIterator = 0;
       }
-      currentpreWorkout = shakes[preWorkoutIterator];
-      preWorkoutCalories = currentpreWorkout.macros.calories/currentpreWorkout.servings*currentpreWorkout.defaultServing;
+      currentpreWorkout = shakes[shakeIterator];
+      preWorkoutCalories = currentpreWorkout.macros.calories / currentpreWorkout.servings * currentpreWorkout.defaultServing;
       totalCalories += preWorkoutCalories;
       mealPlan.preWorkout.pop();
       mealPlan.preWorkout.push(currentpreWorkout);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
-    if (mealPlan.postWorkout.length) {
-      mealPlan.postWorkout.pop();
+    shakeIterator += 1;
+
+    //POSTWORKOUT
+
+    if (shakeIterator >= shakes.length) {
+      shakes = shuffle(shakes);
+      shakeIterator = 0;
     }
 
-    let postWorkoutIterator = 0;
-    let currentpostWorkout = shakes[postWorkoutIterator];
-    let postWorkoutCalories = currentpostWorkout.macros.calories/currentpostWorkout.servings*currentpostWorkout.defaultServing;
+    if (mealPlan.postWorkout.length > 0) {
+      mealPlan.postWorkout.pop();
+      totalCalories -= postWorkoutCalories;
+    }
+
+
+    let currentpostWorkout = shakes[shakeIterator];
+    let postWorkoutCalories = currentpostWorkout.macros.calories / currentpostWorkout.servings * currentpostWorkout.defaultServing;
     mealPlan.postWorkout.push(currentpostWorkout);
     totalCalories += postWorkoutCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= postWorkoutCalories
-      postWorkoutIterator += 1;
-      if(postWorkoutIterator >= shakes.length) {
+      shakeIterator += 1;
+      if (shakeIterator >= shakes.length) {
         shakes = shuffle(shakes);
-        postWorkoutIterator = 0;
+        shakeIterator = 0;
       }
-      currentpostWorkout = shakes[postWorkoutIterator];
-      postWorkoutCalories = currentpostWorkout.macros.calories/currentpostWorkout.servings*currentpostWorkout.defaultServing;
+      currentpostWorkout = shakes[shakeIterator];
+      postWorkoutCalories = currentpostWorkout.macros.calories / currentpostWorkout.servings * currentpostWorkout.defaultServing;
       totalCalories += postWorkoutCalories;
       mealPlan.postWorkout.pop();
       mealPlan.postWorkout.push(currentpostWorkout);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
     //SNACK 1
 
-    if (mealPlan.snacks.length) {
-      mealPlan.snacks.shift();
+    if (snacksIterator >= snacks.length) {
+      snacks = shuffle(snacks);
+      snacksIterator = 0;
     }
 
-    let snacksIterator = 0;
+    if (mealPlan.snacks.length > 0) {
+      let removedSnack = mealPlan.snacks.shift();
+      totalCalories -= removedSnack.macros.calories;
+    }
+
+
     let currentsnacks = snacks[snacksIterator];
-    let snacksCalories = currentsnacks.macros.calories/currentsnacks.servings*currentsnacks.defaultServing;
+    let snacksCalories = currentsnacks.macros.calories / currentsnacks.servings * currentsnacks.defaultServing;
     mealPlan.snacks.push(currentsnacks);
     totalCalories += snacksCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= snacksCalories
       snacksIterator += 1;
-      if(snacksIterator >= snacks.length) {
+      if (snacksIterator >= snacks.length) {
         snacks = shuffle(snacks);
         snacksIterator = 0;
       }
       currentsnacks = snacks[snacksIterator];
-      snacksCalories = currentsnacks.macros.calories/currentsnacks.servings*currentsnacks.defaultServing;
+      snacksCalories = currentsnacks.macros.calories / currentsnacks.servings * currentsnacks.defaultServing;
       totalCalories += snacksCalories;
       mealPlan.snacks.pop();
       mealPlan.snacks.push(currentsnacks);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
+    snacksIterator += 1;
 
-// SIDES 1
+    // SIDES 1
 
-    if (mealPlan.sides.length) {
-      mealPlan.sides.shift();
+    if (sidesIterator >= sides.length) {
+      sides = shuffle(sides);
+      sidesIterator = 0;
     }
 
-    let sidesIterator = 0;
+    if (mealPlan.sides.length > 0) {
+      removedSide = mealPlan.sides.shift();
+      totalCalories -= removedSide.macros.calories;
+    }
+
+
     let currentsides = sides[sidesIterator];
-    let sidesCalories = currentsides.macros.calories/currentsides.servings*currentsides.defaultServing;
+    let sidesCalories = currentsides.macros.calories / currentsides.servings * currentsides.defaultServing;
     mealPlan.sides.push(currentsides);
     totalCalories += sidesCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= sidesCalories
       sidesIterator += 1;
-      if(sidesIterator >= sides.length) {
+      if (sidesIterator >= sides.length) {
         sides = shuffle(sides);
         sidesIterator = 0;
       }
       currentsides = sides[sidesIterator];
-      sidesCalories = currentsides.macros.calories/currentsides.servings*currentsides.defaultServing;
+      sidesCalories = currentsides.macros.calories / currentsides.servings * currentsides.defaultServing;
       totalCalories += sidesCalories;
       mealPlan.sides.pop();
       mealPlan.sides.push(currentsides);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
+
+    sidesIterator += 1;
 
     //SNACK 2
 
     if (mealPlan.snacks.length > 1) {
-      mealPlan.snacks.shift();
+      let removedSnack = mealPlan.snacks.shift();
+      totalCalories -= removedSnack.macros.calories;
     }
 
-    snacksIterator += 1;
-    if(snacksIterator >= snacks.length) {
+
+    if (snacksIterator >= snacks.length) {
       snacks = shuffle(snacks);
       snacksIterator = 0;
     }
+
     currentsnacks = snacks[snacksIterator];
-    snacksCalories = currentsnacks.macros.calories/currentsnacks.servings*currentsnacks.defaultServing;
+    snacksCalories = currentsnacks.macros.calories / currentsnacks.servings * currentsnacks.defaultServing;
     mealPlan.snacks.push(currentsnacks);
     totalCalories += snacksCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= snacksCalories
       snacksIterator += 1;
-      if(snacksIterator >= snacks.length) {
+      if (snacksIterator >= snacks.length) {
         snacks = shuffle(snacks);
         snacksIterator = 0;
       }
       currentsnacks = snacks[snacksIterator];
-      snacksCalories = currentsnacks.macros.calories/currentsnacks.servings*currentsnacks.defaultServing;
+      snacksCalories = currentsnacks.macros.calories / currentsnacks.servings * currentsnacks.defaultServing;
       totalCalories += snacksCalories;
       mealPlan.snacks.pop();
       mealPlan.snacks.push(currentsnacks);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
+    snacksIterator += 1;
 
     //SIDE 2
 
-    if (mealPlan.sides.length > 1) {
-      mealPlan.sides.shift();
-    }
-
-    sidesIterator += 1;
     if(sidesIterator >= sides.length) {
       sides = shuffle(sides);
       sidesIterator = 0;
     }
+
+    if (mealPlan.sides.length > 1) {
+      removedSide = mealPlan.sides.shift();
+      totalCalories -= removedSide.macros.calories;
+    }
+
     currentsides = sides[sidesIterator];
-    sidesCalories = currentsides.macros.calories/currentsides.servings*currentsides.defaultServing;
+    sidesCalories = currentsides.macros.calories / currentsides.servings * currentsides.defaultServing;
     mealPlan.sides.push(currentsides);
     totalCalories += sidesCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= sidesCalories
       sidesIterator += 1;
-      if(sidesIterator >= sides.length) {
+      if (sidesIterator >= sides.length) {
         sides = shuffle(sides);
         sidesIterator = 0;
       }
       currentsides = sides[sidesIterator];
-      sidesCalories = currentsides.macros.calories/currentsides.servings*currentsides.defaultServing;
+      sidesCalories = currentsides.macros.calories / currentsides.servings * currentsides.defaultServing;
       totalCalories += sidesCalories;
       mealPlan.sides.pop();
       mealPlan.sides.push(currentsides);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
-    //SNACK 3
-    if (mealPlan.snacks.length > 2) {
-      mealPlan.snacks.shift();
-    }
+    sidesIterator += 1;
 
-    snacksIterator += 1;
-    if(snacksIterator >= snacks.length) {
+    //SNACK 3
+
+    if (snacksIterator >= snacks.length) {
       snacks = shuffle(snacks);
       snacksIterator = 0;
     }
+
+    if (mealPlan.snacks.length > 2) {
+      let removedSnack = mealPlan.snacks.shift();
+      totalCalories -= removedSnack.macros.calories;
+    }
+
     currentsnacks = snacks[snacksIterator];
-    snacksCalories = currentsnacks.macros.calories/currentsnacks.servings*currentsnacks.defaultServing;
+    snacksCalories = currentsnacks.macros.calories / currentsnacks.servings * currentsnacks.defaultServing;
     mealPlan.snacks.push(currentsnacks);
     totalCalories += snacksCalories;
 
     while (isOver(totalCalories, goal)) {
       totalCalories -= snacksCalories
       snacksIterator += 1;
-      if(snacksIterator >= snacks.length) {
+      if (snacksIterator >= snacks.length) {
         snacks = shuffle(snacks);
         snacksIterator = 0;
       }
       currentsnacks = snacks[snacksIterator];
-      snacksCalories = currentsnacks.macros.calories/currentsnacks.servings*currentsnacks.defaultServing;
+      snacksCalories = currentsnacks.macros.calories / currentsnacks.servings * currentsnacks.defaultServing;
       totalCalories += snacksCalories;
       mealPlan.snacks.pop();
       mealPlan.snacks.push(currentsnacks);
     }
 
-    if(!isUnder(totalCalories, goal)) {
+    if (!isUnder(totalCalories, goal)) {
       return mealPlan;
     }
 
+    snacksIterator += 1;
 
   }
 }
@@ -320,7 +385,7 @@ const filterByName = (item, name) => {
 
 const shuffle = (data) => {
   const array = data.slice();
-  for(let i = array.length - 1; i > 0; i -= 1){
+  for (let i = array.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * i);
     const temp = array[i];
     array[i] = array[j];

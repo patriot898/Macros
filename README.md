@@ -1,49 +1,24 @@
-Concept
-Build an app that takes in weight, body fat percentage, activity level, and goal and gives a daily meal plan based on the recipes and snack items saved to the database
-Base
-Environment Setup - 2 hrs
-Mongo Database using Mongoose - 4 hrs
-Collections
-Breakfasts
-Lunch-Dinners
-Fruits
-Veggies
-Sides
-Snacks
-Database Seeding - 2 hrs
-TDEE Calculator - 2 hrs
-Day Meal Plan Display  - 3 hrs
-Meal Plan Calculation Logic - 12 hrs
-Recipe Builder - 4 hours
-Item Adder - 2 hrs
-Recipe/Snack Display - 2 hrs
-
-Stretch
-Create meal plan for week/month
-Allow to populate a grocery list
-Optimize Searching for items
-Classify Snacks as Carb/Cal/Protein Snacks
-   Maybe Rank Each so that searches can be optimized when searching for a protein heavy/fat     moderate snack
-Convert Item Adder to use API
-Beautify Calculator
-Beautify Meal Plan Display
-Beautify Available Recipes/Snack Displays
+***Concept***
+A personal React.js App used to assess recipes, store recipes and individual food items in a database, then calculate a daily meal plan based on daily caloric requirements determined by input body weight, body fat percentage, exercise activity level, and weight goal (cut/maintain/bulk). Target audience are those who have established diets and recipes who are looking to save time to generate a meal plan tailored to their individual intake requirements.
 
 
-Technologies
+**Technologies**
 
-Core Services
+*Core Services*
 Node.js
-Mongodb
+MongoDB
 
-Modules
+*Modules*
 Webpack
 Babel
 React
 React-dom
+React Bootstrap
 Nodemon
 Mongoose
 Styled-components
+Axios
+Express
 
-External APIs
-Edamam
+*External APIs*
+Edamam - used to calculate macronutrient and micronutrient breakdown of recipes by taking in an array of ingredients as strings. Returns an object with gram values for different micronutrients and macronutrients such as protein, carbohydrates, and calcium
