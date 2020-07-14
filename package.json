@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/patriot898/mealplanMvp.git"
+    "url": "git+https://github.com/patriot898/Macros.git"
   },
   "author": "Kiefer Ragay",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/patriot898/mealplanMvp/issues"
+    "url": "https://github.com/patriot898/Macros/issues"
   },
-  "homepage": "https://github.com/patriot898/mealplanMvp#readme",
+  "homepage": "https://github.com/patriot898/Macros#readme",
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
